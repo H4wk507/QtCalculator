@@ -19,10 +19,16 @@ set(TS_FILES Calculator_pl_PL.ts)
 set(PROJECT_SOURCES
         main.cpp
         calculator.cpp
-        functions.cpp
         calculator.h
-        functions.h
         calculator.ui
+        helper.h
+        helper.cpp
+        ExpressionParser.h
+        ExpressionParser.cpp
+        Function.h
+        Operator.h
+        ParseVal.h
+        ParseVal.cpp
         ${TS_FILES}
 )
 

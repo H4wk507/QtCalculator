@@ -1,6 +1,6 @@
 #include "calculator.h"
 #include "./ui_calculator.h"
-#include "functions.h"
+#include "ExpressionParser.h"
 
 bool __exit = false;
 
@@ -120,10 +120,8 @@ void Calculator::EqualButtonPressed()
 {
     double solution;
     QString displayVal = ui->Input->text();
-    remove_spaces(displayVal);
-    sci it = displayVal.cbegin();
 
-    solution = prec9(this, it);
+    solution = ExpressionParser::eval(displayVal);
     if (!__exit)
         ui->Input->setText(QString::number(solution));
 
