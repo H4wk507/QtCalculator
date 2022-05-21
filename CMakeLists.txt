@@ -14,21 +14,21 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
 
-set(TS_FILES Calculator_pl_PL.ts)
+set(TS_FILES src/Calculator_pl_PL.ts)
 
 set(PROJECT_SOURCES
-        main.cpp
-        calculator.cpp
-        calculator.h
-        calculator.ui
-        helper.h
-        helper.cpp
-        ExpressionParser.h
-        ExpressionParser.cpp
-        Function.h
-        Operator.h
-        ParseVal.h
-        ParseVal.cpp
+      src/main.cpp
+      src/calculator.cpp
+      src/calculator.h
+      src/calculator.ui
+      src/helper.h
+      src/helper.cpp
+      src/ExpressionParser.h
+      src/ExpressionParser.cpp
+      src/Function.h
+      src/Operator.h
+      src/ParseVal.h
+      src/ParseVal.cpp
         ${TS_FILES}
 )
 
