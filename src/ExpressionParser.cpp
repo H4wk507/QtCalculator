@@ -9,25 +9,13 @@
 // debug
 #include <QDebug>
 
-// forward declarations
-//extern const std::unordered_map<std::string, Operator> opMap;
-//extern const std::unordered_map<std::string, Function> funcMap;
-
-/*
- *	Map from std::string to enum Function.
- * 	The only use of this map is to use
- * 	switch statement instead of else if within strings.
- */
+/* map from std::string to enum Function. */
 extern const QMap<QString, Function> funcMap = {
     {"sin", Function::FUNCTION_SINE},
     {"cos", Function::FUNCTION_COS},
 };
 
-/*
- *	Map from std::string to enum Operator.
- * 	The only use of this map is to use
- * 	switch statement instead of else if within strings.
- */
+/* map from std::string to enum Operator. */
 extern const QMap<QString, Operator> opMap = {
     {"!", Operator::OPERATOR_FACTORIAL},
     {"~", Operator::OPERATOR_BITWISE_NOT},
@@ -174,12 +162,12 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
       // if token is an operator
       else if (is_operator(token.get_operator()))
       {
-         if ((!is_open_paren(token, in_abs)) and
-             !is_unary(token, prev_token, in_abs))
+         if ((!token.is_open_paren(in_abs)) and
+             !token.is_unary(prev_token, in_abs))
          {
             while (!stack.empty() and
-                   ((is_closed_paren(token, in_abs) and
-                     !is_open_paren(stack.back(), in_abs)) or
+                   ((token.is_closed_paren(in_abs) and
+                     !stack.back().is_open_paren(in_abs)) or
                     (stack.back().get_prec() > token.get_prec()) or
                     ((stack.back().get_prec() == token.get_prec()) and
                      (token.get_assoc() ==
@@ -188,7 +176,7 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
                postfix.push_back(stack.back());
                stack.pop_back();
             }
-            if (!stack.empty() and is_closed_paren(token, in_abs))
+            if (!stack.empty() and token.is_closed_paren(in_abs))
                stack.pop_back();
          }
 
@@ -197,11 +185,11 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
             postfix.push_back(token);
 
          // if number before opening parentheses treat it as multiplication
-         if (is_open_paren(token, in_abs) and
+         if (token.is_open_paren(in_abs) and
              is_decimal(prev_token.get_operator()) and !in_abs)
             stack.push_back(token_to_parseval("*"));
 
-         if (!is_closed_paren(token, in_abs) and token.get_operator() != "!")
+         if (!token.is_closed_paren(in_abs) and token.get_operator() != "!")
             stack.push_back(token);
 
          // check if we are inside absolute value

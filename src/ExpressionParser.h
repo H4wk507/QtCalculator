@@ -1,5 +1,4 @@
-#ifndef EXPRESSIONPARSER_H
-#define EXPRESSIONPARSER_H
+#pragma once
 
 #include <QString>
 #include <string>
@@ -15,5 +14,3 @@ class ExpressionParser
    static double calculate(const std::vector<ParseVal> &postfix);
    static double eval(const QString &s);
 };
-
-#endif  // EXPRESSIONPARSER_H

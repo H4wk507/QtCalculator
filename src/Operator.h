@@ -1,5 +1,4 @@
-#ifndef OPERATOR_H
-#define OPERATOR_H
+#pragma once
 
 enum class Operator {
    OPERATOR_NULL,
@@ -21,5 +20,3 @@ enum class Operator {
    OPERATOR_BITWISE_XOR,
    OPERATOR_BITWISE_OR,
 };
-
-#endif  // OPERATOR_H

@@ -59,43 +59,11 @@ bool is_operator(const QString &token)
            token == "⁻" or token == "√");
 }
 
-bool is_open_paren(const ParseVal &token, const bool &in_abs)
-{
-   return (token.get_operator() == "(" or
-           (token.get_operator() == "|" and !in_abs));
-}
-
-bool is_closed_paren(const ParseVal &token, const bool &in_abs)
-{
-   return (token.get_operator() == ")" or
-           (token.get_operator() == "|" and in_abs));
-}
-
 bool isspace(const QString &s)
 {
    return std::all_of(s.begin(), s.end(), [](QChar c) {
       return c == ' ';
    });
-}
-
-bool is_unary(ParseVal &token, const ParseVal &prev_token, const bool &in_abs)
-{
-   /*
-     * Operator is unary only if:
-     * - it is '+' or '-' and (prev_token is not unary op or NULL or closed bracket)
-     * - '!' or '~' or '|' (we do not need to test)
-     */
-   if ((token.get_operator() == "+" or token.get_operator() == "-") and
-       (prev_token.get_operator() == "NULL" or
-        (prev_token.get_assoc() == ParseVal::Associativity::left_to_right and
-         (is_operator(prev_token.get_operator()) and
-          !is_closed_paren(prev_token, in_abs)))) and
-       prev_token.get_operator() != "|")
-   {
-      token.set_assoc(ParseVal::Associativity::right_to_left);
-      return true;
-   }
-   return false;
 }
 
 ParseVal handle_function(const QString &token)

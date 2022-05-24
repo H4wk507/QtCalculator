@@ -1,5 +1,4 @@
-#ifndef PARSEVAL_H
-#define PARSEVAL_H
+#pragma once
 
 #include <QString>
 #include <string>
@@ -24,6 +23,11 @@ class ParseVal
    /* Check if the std::string is a function. */
    static bool is_function(const QString &token);
 
+   bool is_open_paren(const bool &in_abs) const;
+   bool is_closed_paren(const bool &in_abs) const;
+
+   bool is_unary(const ParseVal &prev_token, const bool &in_abs);
+
    /* getters */
    Associativity get_assoc() const;
    int get_prec() const;
@@ -31,5 +35,3 @@ class ParseVal
 
    void set_assoc(const Associativity &associativity);
 };
-
-#endif  // PARSEVAL_H

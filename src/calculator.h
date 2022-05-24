@@ -1,5 +1,4 @@
-#ifndef CALCULATOR_H
-#define CALCULATOR_H
+#pragma once
 
 #include <QMainWindow>
 #include <QRegularExpression>
@@ -32,5 +31,3 @@ class Calculator : public QMainWindow
    void EnterButtonPressed();
    void ResetButtonPressed();
 };
-
-#endif  // CALCULATOR_H

@@ -1,5 +1,4 @@
-#ifndef HELPER_H
-#define HELPER_H
+#pragma once
 
 #include <QString>
 #include <stdexcept>
@@ -58,5 +57,3 @@ ParseVal token_to_parseval(const QString &token);
 bool handle_multichar_operator(const std::vector<QString> &exp,
                                std::vector<ParseVal> &tokens, size_t &idx,
                                const QString &op);
-
-#endif  // HELPER_H
