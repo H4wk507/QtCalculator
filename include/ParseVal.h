@@ -16,6 +16,7 @@ class ParseVal
    public:
    ParseVal();
    ParseVal(const QString &opr, int prec, Associativity assoc);
+   ~ParseVal() = default;
 
    /* Check if the ParseVal object is a function. */
    bool is_function() const;

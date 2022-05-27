@@ -1,9 +1,9 @@
-#include "ParseVal.h"
+#include "../include/ParseVal.h"
 #include <QMap>
 #include <unordered_map>
-#include "Function.h"
-#include "Operator.h"
-#include "helper.h"
+#include "../include/Function.h"
+#include "../include/Operator.h"
+#include "../include/helper.h"
 
 extern const QMap<QString, Operator> opMap;
 extern const QMap<QString, Function> funcMap;

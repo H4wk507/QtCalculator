@@ -1,73 +1,113 @@
-# This file is used to ignore files which are generated
-# ----------------------------------------------------------------------------
+__pycache__/
 
-*~
-*.autosave
-*.a
-*.core
-*.moc
+# C++ objects and libs
+
+*.slo
+*.lo
 *.o
-*.obj
-*.orig
-*.rej
+*.a
+*.la
+*.lai
 *.so
-*.so.*
-*_pch.h.cpp
-*_resource.rc
-*.qm
-.#*
-*.*#
-core
-!core/
-tags
-.DS_Store
-.directory
-*.debug
-Makefile*
-*.prl
-*.app
-moc_*.cpp
-ui_*.h
-qrc_*.cpp
-Thumbs.db
-*.res
-*.rc
+*.dll
+*.dylib
+
+# Qt-es
+
 /.qmake.cache
 /.qmake.stash
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+*.moc
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+Makefile*
+*build-*/
+[bB]uild
+/_build/
 
-# qtcreator generated files
-*.pro.user*
+# QtCreator
 
-# xemacs temporary files
-*.flc
+*.autosave
 
-# Vim temporary files
-.*.swp
+# QtCtreator Qml
+*.qmlproject.user
+*.qmlproject.user.*
 
-# Visual Studio generated files
-*.ib_pdb_index
-*.idb
-*.ilk
-*.pdb
-*.sln
-*.suo
-*.vcproj
-*vcproj.*.*.user
-*.ncb
-*.sdf
-*.opensdf
-*.vcxproj
-*vcxproj.*
+# QtCtreator CMake
+CMakeLists.txt.user
 
-# MinGW generated files
-*.Debug
-*.Release
+# Ignore moc-files
+moc_*.h
+moc_*.cpp
 
-# Python byte code
-*.pyc
+# Ignore binary file
+/chatterino
 
-# Binaries
-# --------
-*.dll
-*.exe
+settings.json
 
+# Ignore any files beginning with activate- as they can be used for account credentials
+activate-*
+
+.gdb_history
+
+## Vim Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+
+# Vim Session
+Session.vim
+
+# Vim Temporary
+.netrwhist
+*~
+# Vim Auto-generated tag files
+tags
+
+# rapidjson directory
+rapidjson/*
+
+Thumbs.db
+
+# I HATE MAC
+.DS_Store
+
+# Other editors/IDEs
+.vscode
+.vs
+.idea
+dependencies
+.cache
+.editorconfig
+
+### CMake ###
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+CMakeUserPresets.json
+CMakePresets.json
+CMakeSettings.json
+
+### CMake Patch ###
+# External projects
+*-prefix/
+Stamp
+tmp
+Source
+Dependencies_*
+
+# vcpkg
+vcpkg_installed/

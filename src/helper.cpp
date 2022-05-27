@@ -1,13 +1,13 @@
-#include "helper.h"
+#include "../include/helper.h"
 #include <QDebug>
 #include <QMap>
 #include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <sstream>
-#include "Function.h"
-#include "Operator.h"
-#include "ParseVal.h"
+#include "../include/Function.h"
+#include "../include/Operator.h"
+#include "../include/ParseVal.h"
 
 extern const QMap<QString, Operator> opMap;
 extern const QMap<QString, Function> funcMap;
@@ -122,29 +122,16 @@ ParseVal handle_operator(const QString &token)
    }
 }
 
-ParseVal bin_to_dec(const ParseVal &pv)
+ParseVal base_to_dec(const ParseVal &pv, unsigned base)
 {
    bool ok;
-   QString binary = pv.get_operator().mid(2);
-   long long decimal = binary.toLongLong(&ok, 2);
+   QString old_num = pv.get_operator().mid(2);
+   long long decimal = old_num.toLongLong(&ok, base);
 
    if (!ok)
       throw std::runtime_error("Conversion not possible");
 
    return ParseVal(QString::number(decimal), 100,
-                   ParseVal::Associativity::left_to_right);
-}
-
-ParseVal hex_to_dec(const ParseVal &pv)
-{
-   bool ok;
-   QString hex = pv.get_operator().mid(2);
-   long long dec = hex.toLongLong(&ok, 16);
-
-   if (!ok)
-      throw std::runtime_error("Conversion not possible");
-
-   return ParseVal(QString::number(dec), 100,
                    ParseVal::Associativity::left_to_right);
 }
 
@@ -178,7 +165,7 @@ bool handle_multichar_operator(const std::vector<QString> &exp,
    QString c2 = QString(1, op[1]);
    if (idx < exp.size() - 1 and exp[idx] == c1 and exp[idx + 1] == c2)
    {
-      if (op == "⁻¹")
+      if (c1 == "⁻" and c2 == "¹")
       {
          tokens.push_back(token_to_parseval("**"));
          tokens.push_back(token_to_parseval("("));

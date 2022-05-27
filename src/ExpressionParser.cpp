@@ -1,11 +1,11 @@
-#include "ExpressionParser.h"
+#include "../include/ExpressionParser.h"
 #include <QMap>
 #include <cmath>
 #include <unordered_map>
-#include "Function.h"
-#include "Operator.h"
-#include "ParseVal.h"
-#include "helper.h"
+#include "../include/Function.h"
+#include "../include/Operator.h"
+#include "../include/ParseVal.h"
+#include "../include/helper.h"
 // debug
 #include <QDebug>
 
@@ -22,7 +22,6 @@ extern const QMap<QString, Operator> opMap = {
     {"E", Operator::OPERATOR_EXPONENT},
     {"**", Operator::OPERATOR_POWER},
     {"%", Operator::OPERATOR_MODULO},
-    {"mod", Operator::OPERATOR_MODULO},
     {"*", Operator::OPERATOR_MULTIPLICATION},
     {"/", Operator::OPERATOR_DIVISION},
     {"+", Operator::OPERATOR_ADDITION},
@@ -59,8 +58,7 @@ std::vector<ParseVal> ExpressionParser::tokenize(
          continue;
 
       // if it is an operator
-      if (is_operator(exp[i]) or (i < exp.size() - 3 and exp[i] == "M" and
-                                  exp[i + 1] == "O" and exp[i + 2] == "D"))
+      if (is_operator(exp[i]))
       {
          if (!number.isEmpty())
             tokens.push_back(token_to_parseval(number));
@@ -90,15 +88,11 @@ std::vector<ParseVal> ExpressionParser::tokenize(
          {
             in_sqrt = true;
          }
-         else if (i < exp.size() - 3 and exp[i] == "M" and exp[i + 1] == "O" and
-                  exp[i + 2] == "D")
-         {
-            tokens.push_back(token_to_parseval("%"));
-            i += 2;
-         }
          else if (!handled)
             tokens.push_back(token_to_parseval(exp[i]));
       }
+
+      // if it is a number or a function
       else
       {
          if (number == "0")
@@ -130,7 +124,7 @@ std::vector<ParseVal> ExpressionParser::tokenize(
       tokens.push_back(token_to_parseval("0.5"));
    }
 
-   for (int i = 0; i < tokens.size(); i++)
+   for (size_t i = 0; i < tokens.size(); i++)
       qInfo() << tokens[i].get_operator() << '\n';
    return tokens;
 }
@@ -150,14 +144,17 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
 
    for (ParseVal &token : infix)
    {
-      // if token is a number
+      // if token is a decimal number
       if (is_decimal(token.get_operator()))
          postfix.push_back(token);
 
-      if (is_hex(token.get_operator()))
-         postfix.push_back(hex_to_dec(token));
-      if (is_bin(token.get_operator()))
-         postfix.push_back(bin_to_dec(token));
+      // hex number
+      else if (is_hex(token.get_operator()))
+         postfix.push_back(base_to_dec(token, 16));
+
+      // binary number
+      else if (is_bin(token.get_operator()))
+         postfix.push_back(base_to_dec(token, 2));
 
       // if token is an operator
       else if (is_operator(token.get_operator()))
@@ -180,7 +177,7 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
                stack.pop_back();
          }
 
-         // handle ! seperately because it is a  strange operator
+         // handle ! seperately because it is a  strange operator (right side unary)
          if (token.get_operator() == "!")
             postfix.push_back(token);
 

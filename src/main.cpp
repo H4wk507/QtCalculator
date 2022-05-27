@@ -1,4 +1,4 @@
-#include "calculator.h"
+#include "../include/calculator.h"
 
 #include <QApplication>
 #include <QLocale>

@@ -27,9 +27,8 @@ bool is_decimal(const QString &s);
 bool is_hex(const QString &s);
 bool is_bin(const QString &s);
 
-/* convert a binary number to decimal */
-ParseVal bin_to_dec(const ParseVal &pv);
-ParseVal hex_to_dec(const ParseVal &pv);
+/* convert a base number to decimal */
+ParseVal base_to_dec(const ParseVal &pv, unsigned base);
 bool is_double(double n);
 
 /* Check if the string is an operator. Operator != function. */

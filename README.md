@@ -1,13 +1,13 @@
 # QtCalculator
 
-## Build on Ubuntu
-<em> Most likely works the same for other Debian-like distros </em>
-
-1. Install all of the dependencies using ```sudo apt install qttools5-dev qtmultimedia5-dev libqt5svg5-dev 
-libboost-dev libssl-dev libboost-system-dev libboost-filesystem-dev cmake g++```
-
-### Compiling manually
-
+## Settings up Qt
+1. Start by installing the Qt SDK from [qt.io](https://www.qt.io/download).
+## Get it running
+1. Clone/download the repository
+2. Open ``` Calculator.pro ``` file using Qt Creator
+3. Once inside Qt creator click on configure Project options (it will configure the project according to your device)
+## Compiling manually
 1. Go into the project directory
 2. Create a build folder and go into it (```mkdir build && cd build```)
 3. Compile using CMake ``` cmake .. && make ```
+4. Run it ``` ./Calculator ```
