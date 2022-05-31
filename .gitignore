@@ -1,5 +1,8 @@
 __pycache__/
 
+Calculator
+todo
+
 # C++ objects and libs
 
 *.slo
@@ -43,9 +46,6 @@ CMakeLists.txt.user
 # Ignore moc-files
 moc_*.h
 moc_*.cpp
-
-# Ignore binary file
-/chatterino
 
 settings.json
 

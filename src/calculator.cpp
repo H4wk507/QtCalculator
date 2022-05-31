@@ -22,6 +22,14 @@ Calculator::Calculator(QWidget *parent)
       connect(numButtons[i], SIGNAL(released()), this, SLOT(NumPressed()));
    }
 
+   QPushButton *letterButtons[6];
+   for (char i = 'A'; i <= 'F'; i++)
+   {
+      QString butName = QString("Button") + QChar(i);
+      size_t idx = i - 'A';
+      letterButtons[idx] = Calculator::findChild<QPushButton *>(butName);
+      connect(letterButtons[idx], SIGNAL(released()), this, SLOT(NumPressed()));
+   }
    // set dot; we treat dot as a part of the number
    connect(ui->Dot, SIGNAL(released()), this, SLOT(NumPressed()));
 
@@ -64,14 +72,14 @@ Calculator::~Calculator()
    delete ui;
 }
 
-// handle every number from 0-9 and dot '.'
+// handle every number from 0-9, A-F and dot '.'
 void Calculator::NumPressed()
 {
    QPushButton *button = (QPushButton *)sender();
    QString butVal = button->text();
    QString displayVal = ui->Input->text();
 
-   static QRegularExpression reg("^[^\\d]+$");
+   static QRegularExpression reg("^[^\\da-fA-F]+$");
    QRegularExpressionMatch match = reg.match(displayVal);
 
    if (match.hasMatch())

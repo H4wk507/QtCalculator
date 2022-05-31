@@ -1,6 +1,7 @@
 # QtCalculator
-
-## Settings up Qt
+A simple GUI calculator built using Qt and C++
+![GUI](./screenshots/gui.png)
+## Setting up Qt
 1. Start by installing the Qt SDK from [qt.io](https://www.qt.io/download).
 ## Get it running
 1. Clone/download the repository

@@ -48,7 +48,7 @@ QPushButton::pressed {
      </widget>
     </item>
     <item row="2" column="0">
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="ButtonC">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -183,7 +183,7 @@ QPushButton::pressed {
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="ButtonD">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -210,7 +210,7 @@ QPushButton::pressed {
      </widget>
     </item>
     <item row="3" column="2">
-     <widget class="QPushButton" name="pushButton_10">
+     <widget class="QPushButton" name="ButtonA">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -264,7 +264,7 @@ QPushButton::pressed {
      </widget>
     </item>
     <item row="2" column="3">
-     <widget class="QPushButton" name="pushButton_4">
+     <widget class="QPushButton" name="ButtonF">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -588,7 +588,7 @@ QPushButton::pressed {
      </widget>
     </item>
     <item row="3" column="3">
-     <widget class="QPushButton" name="pushButton_12">
+     <widget class="QPushButton" name="ButtonB">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -723,7 +723,7 @@ QPushButton::pressed {
      </widget>
     </item>
     <item row="2" column="2">
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="ButtonE">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>

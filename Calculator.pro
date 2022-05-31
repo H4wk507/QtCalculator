@@ -1,5 +1,4 @@
 CONFIG += qt
-QT += core gui
 QT += widgets
 
 TEMPLATE = app
