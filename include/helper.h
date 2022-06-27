@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QString>
+#include <cmath>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -19,6 +20,10 @@ T poptop(std::vector<T> &st)
    st.pop_back();
    return x;
 }
+
+// calculate gcd
+double gcd(double a, double b);
+double gcd(const std::vector<double> &numbers, int n);
 
 double factorial(int n);
 

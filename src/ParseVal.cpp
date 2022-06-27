@@ -42,6 +42,11 @@ bool ParseVal::is_closed_paren(const bool &in_abs) const
    return (_operator == ")" or (_operator == "|" and in_abs));
 }
 
+bool ParseVal::is_comma() const
+{
+   return _operator == ",";
+}
+
 bool ParseVal::is_unary(const ParseVal &prev_token, const bool &in_abs)
 {
    /*

@@ -26,6 +26,7 @@ class ParseVal
 
    bool is_open_paren(const bool &in_abs) const;
    bool is_closed_paren(const bool &in_abs) const;
+   bool is_comma() const;
 
    bool is_unary(const ParseVal &prev_token, const bool &in_abs);
 

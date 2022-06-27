@@ -12,6 +12,31 @@
 extern const QMap<QString, Operator> opMap;
 extern const QMap<QString, Function> funcMap;
 
+double gcd(double a, double b)
+{
+   if (a < b)
+      return gcd(b, a);
+
+   // base case
+   if (fabs(b) < 0.001)
+      return a;
+
+   else
+      return (gcd(b, a - floor(a / b) * b));
+}
+
+double gcd(const std::vector<double> &numbers)
+{
+   if (numbers.empty())
+      throw std::runtime_error("gcd: gcd of zero numbers");
+
+   double g = numbers[0];
+   for (size_t i = 1; i < numbers.size(); i++)
+      g = gcd(g, numbers[i]);
+
+   return g;
+}
+
 double factorial(int n)
 {
    if (n < 0)

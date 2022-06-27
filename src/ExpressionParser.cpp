@@ -167,7 +167,7 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
              !token.is_unary(prev_token, in_abs))
          {
             while (!stack.empty() and
-                   ((token.is_closed_paren(in_abs) and
+                   (((token.is_closed_paren(in_abs) or token.is_comma()) and
                      !stack.back().is_open_paren(in_abs)) or
                     (stack.back().get_prec() > token.get_prec()) or
                     ((stack.back().get_prec() == token.get_prec()) and
@@ -190,7 +190,8 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
              is_decimal(prev_token.get_operator()) and !in_abs)
             stack.push_back(token_to_parseval("*"));
 
-         if (!token.is_closed_paren(in_abs) and token.get_operator() != "!")
+         if (!token.is_closed_paren(in_abs) and !token.is_comma() and
+             token.get_operator() != "!")
             stack.push_back(token);
 
          // check if we are inside absolute value
@@ -208,6 +209,9 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
       postfix.push_back(stack.back());
       stack.pop_back();
    }
+   qInfo() << "////////////////\n";
+   for (size_t i = 0; i < postfix.size(); i++)
+      qInfo() << postfix[i].get_operator() << '\n';
    return postfix;
 }
 
@@ -216,6 +220,8 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
 {
    std::vector<double> eval_stack;
 
+   for (auto &e : postfix)
+      qInfo() << e.get_operator();
    for (const ParseVal &token : postfix)
    {
       // if token is an operator
@@ -363,6 +369,9 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                break;
             case Function::FUNCTION_COS:
                eval_stack.push_back(cos(poptop(eval_stack)));
+               break;
+            case Function::FUNCTION_GCD:
+               eval_stack.push_back(gcd(eval_stack));
                break;
             default:
                throw std::runtime_error("Unknown function");
