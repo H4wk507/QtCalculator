@@ -13,6 +13,7 @@
 extern const QMap<QString, Function> funcMap = {
     {"sin", Function::FUNCTION_SINE},
     {"cos", Function::FUNCTION_COS},
+    {"gcd", Function::FUNCTION_GCD},
 };
 
 /* map from std::string to enum Operator. */
@@ -35,7 +36,8 @@ extern const QMap<QString, Operator> opMap = {
     {"|", Operator::OPERATOR_ABS},
     {"(", Operator::OPERATOR_OPEN_BRACKET},
     {")", Operator::OPERATOR_CLOSED_BRACKET},
-    {"∨", Operator::OPERATOR_BITWISE_OR}};
+    {"∨", Operator::OPERATOR_BITWISE_OR},
+    {",", Operator::OPERATOR_COMMA}};
 
 /* 	Convert expression (user input) to tokens
  *	which can be easily evaluated.
@@ -92,6 +94,8 @@ std::vector<ParseVal> ExpressionParser::tokenize(
             tokens.push_back(token_to_parseval(exp[i]));
       }
 
+      else if (exp[i] == ",")
+         tokens.push_back(token_to_parseval(","));
       // if it is a number or a function
       else
       {

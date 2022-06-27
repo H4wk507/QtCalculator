@@ -74,6 +74,8 @@ ParseVal handle_function(const QString &token)
          return ParseVal("sin", 11, ParseVal::Associativity::left_to_right);
       case Function::FUNCTION_COS:
          return ParseVal("cos", 11, ParseVal::Associativity::left_to_right);
+      case Function::FUNCTION_GCD:
+         return ParseVal("gcd", 11, ParseVal::Associativity::left_to_right);
       default:
          throw std::runtime_error("Unknown function");
    }
@@ -117,6 +119,8 @@ ParseVal handle_operator(const QString &token)
          return ParseVal(")", -1, ParseVal::Associativity::left_to_right);
       case Operator::OPERATOR_OPEN_BRACKET:
          return ParseVal("(", -2, ParseVal::Associativity::left_to_right);
+      case Operator::OPERATOR_COMMA:
+         return ParseVal(",", -1, ParseVal::Associativity::left_to_right);
       default:
          throw std::runtime_error("handle_operator: Unknown operator");
    }
