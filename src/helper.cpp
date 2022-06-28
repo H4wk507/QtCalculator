@@ -12,6 +12,28 @@
 extern const QMap<QString, Operator> opMap;
 extern const QMap<QString, Function> funcMap;
 
+double gcd(double a, double b)
+{
+   a = abs(a);
+   b = abs(b);
+
+   if (a < b)
+      return gcd(b, a);
+
+   // base case
+   if (fabs(b) < 0.001)
+      return a;
+
+   else
+      return (gcd(b, a - floor(a / b) * b));
+}
+
+double lcm(double a, double b)
+{
+   // possible multiplication overflow
+   return abs(a * b) / gcd(a, b);
+}
+
 double factorial(int n)
 {
    if (n < 0)
@@ -74,6 +96,10 @@ ParseVal handle_function(const QString &token)
          return ParseVal("sin", 11, ParseVal::Associativity::left_to_right);
       case Function::FUNCTION_COS:
          return ParseVal("cos", 11, ParseVal::Associativity::left_to_right);
+      case Function::FUNCTION_GCD:
+         return ParseVal("gcd", 11, ParseVal::Associativity::left_to_right);
+      case Function::FUNCTION_LCM:
+         return ParseVal("lcm", 11, ParseVal::Associativity::left_to_right);
       default:
          throw std::runtime_error("Unknown function");
    }
@@ -117,6 +143,8 @@ ParseVal handle_operator(const QString &token)
          return ParseVal(")", -1, ParseVal::Associativity::left_to_right);
       case Operator::OPERATOR_OPEN_BRACKET:
          return ParseVal("(", -2, ParseVal::Associativity::left_to_right);
+      case Operator::OPERATOR_COMMA:
+         return ParseVal(",", -1, ParseVal::Associativity::left_to_right);
       default:
          throw std::runtime_error("handle_operator: Unknown operator");
    }

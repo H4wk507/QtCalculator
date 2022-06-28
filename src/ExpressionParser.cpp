@@ -13,6 +13,8 @@
 extern const QMap<QString, Function> funcMap = {
     {"sin", Function::FUNCTION_SINE},
     {"cos", Function::FUNCTION_COS},
+    {"gcd", Function::FUNCTION_GCD},
+    {"lcm", Function::FUNCTION_LCM},
 };
 
 /* map from std::string to enum Operator. */
@@ -35,7 +37,9 @@ extern const QMap<QString, Operator> opMap = {
     {"|", Operator::OPERATOR_ABS},
     {"(", Operator::OPERATOR_OPEN_BRACKET},
     {")", Operator::OPERATOR_CLOSED_BRACKET},
-    {"∨", Operator::OPERATOR_BITWISE_OR}};
+    {"∨", Operator::OPERATOR_BITWISE_OR},
+    {",", Operator::OPERATOR_COMMA},
+};
 
 /* 	Convert expression (user input) to tokens
  *	which can be easily evaluated.
@@ -109,7 +113,7 @@ std::vector<ParseVal> ExpressionParser::tokenize(
 
          // if it is a function
          else
-            function.append(exp[i]);
+            function.append(exp[i].toLower());
       }
    }
    if (!number.isEmpty())
@@ -163,7 +167,7 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
              !token.is_unary(prev_token, in_abs))
          {
             while (!stack.empty() and
-                   ((token.is_closed_paren(in_abs) and
+                   (((token.is_closed_paren(in_abs) or token.is_comma()) and
                      !stack.back().is_open_paren(in_abs)) or
                     (stack.back().get_prec() > token.get_prec()) or
                     ((stack.back().get_prec() == token.get_prec()) and
@@ -186,7 +190,8 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
              is_decimal(prev_token.get_operator()) and !in_abs)
             stack.push_back(token_to_parseval("*"));
 
-         if (!token.is_closed_paren(in_abs) and token.get_operator() != "!")
+         if (!token.is_closed_paren(in_abs) and !token.is_comma() and
+             token.get_operator() != "!")
             stack.push_back(token);
 
          // check if we are inside absolute value
@@ -204,6 +209,9 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
       postfix.push_back(stack.back());
       stack.pop_back();
    }
+   qInfo() << "////////////////\n";
+   for (size_t i = 0; i < postfix.size(); i++)
+      qInfo() << postfix[i].get_operator() << '\n';
    return postfix;
 }
 
@@ -333,7 +341,6 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                eval_stack.push_back((n1 < 0) ? -n1 : n1);
                break;
 
-            // temporary value for or
             case Operator::OPERATOR_BITWISE_OR:
                n1 = poptop(eval_stack);
                n2 = poptop(eval_stack);
@@ -359,6 +366,22 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                break;
             case Function::FUNCTION_COS:
                eval_stack.push_back(cos(poptop(eval_stack)));
+               break;
+            case Function::FUNCTION_GCD:
+               if (eval_stack.size() >= 2)
+                  eval_stack.push_back(
+                      gcd(poptop(eval_stack), poptop(eval_stack)));
+               else
+                  throw std::runtime_error(
+                      "gcd supports only 2 vars at the moment");
+               break;
+            case Function::FUNCTION_LCM:
+               if (eval_stack.size() >= 2)
+                  eval_stack.push_back(
+                      lcm(poptop(eval_stack), poptop(eval_stack)));
+               else
+                  throw std::runtime_error(
+                      "lcm supports only 2 vars at the moment");
                break;
             default:
                throw std::runtime_error("Unknown function");

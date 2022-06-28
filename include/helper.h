@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QString>
+#include <cmath>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -19,6 +20,11 @@ T poptop(std::vector<T> &st)
    st.pop_back();
    return x;
 }
+
+// greatest common divisor
+double gcd(double a, double b);
+// least common multiple
+double lcm(double a, double b);
 
 double factorial(int n);
 
