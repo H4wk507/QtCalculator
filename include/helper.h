@@ -21,9 +21,10 @@ T poptop(std::vector<T> &st)
    return x;
 }
 
-// calculate gcd
+// greatest common divisor
 double gcd(double a, double b);
-double gcd(const std::vector<double> &numbers, int n);
+// least common multiple
+double lcm(double a, double b);
 
 double factorial(int n);
 

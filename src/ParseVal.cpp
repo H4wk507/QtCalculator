@@ -1,4 +1,5 @@
 #include "../include/ParseVal.h"
+#include <QDebug>
 #include <QMap>
 #include <unordered_map>
 #include "../include/Function.h"
@@ -51,11 +52,12 @@ bool ParseVal::is_unary(const ParseVal &prev_token, const bool &in_abs)
 {
    /*
      * Operator is unary only if:
-     * - it is '+' or '-' and (prev_token is not unary op or NULL or closed bracket)
+     * - it is '+' or '-' and (prev_token is not unary op or is NULL or is closed bracket or is comma)
      * - '!' or '~' or '|' (we do not need to test)
      */
+   qDebug() << "is_unary: " << prev_token.get_operator();
    if ((_operator == "+" or _operator == "-") and
-       (prev_token.get_operator() == "NULL" or
+       (prev_token.get_operator() == "NULL" or prev_token.is_comma() or
         (prev_token.get_assoc() == ParseVal::Associativity::left_to_right and
          (is_operator(prev_token.get_operator()) and
           !prev_token.is_closed_paren(in_abs)))) and

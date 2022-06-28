@@ -14,6 +14,9 @@ extern const QMap<QString, Function> funcMap;
 
 double gcd(double a, double b)
 {
+   a = abs(a);
+   b = abs(b);
+
    if (a < b)
       return gcd(b, a);
 
@@ -25,16 +28,10 @@ double gcd(double a, double b)
       return (gcd(b, a - floor(a / b) * b));
 }
 
-double gcd(const std::vector<double> &numbers)
+double lcm(double a, double b)
 {
-   if (numbers.empty())
-      throw std::runtime_error("gcd: gcd of zero numbers");
-
-   double g = numbers[0];
-   for (size_t i = 1; i < numbers.size(); i++)
-      g = gcd(g, numbers[i]);
-
-   return g;
+   // possible multiplication overflow
+   return abs(a * b) / gcd(a, b);
 }
 
 double factorial(int n)
@@ -101,6 +98,8 @@ ParseVal handle_function(const QString &token)
          return ParseVal("cos", 11, ParseVal::Associativity::left_to_right);
       case Function::FUNCTION_GCD:
          return ParseVal("gcd", 11, ParseVal::Associativity::left_to_right);
+      case Function::FUNCTION_LCM:
+         return ParseVal("lcm", 11, ParseVal::Associativity::left_to_right);
       default:
          throw std::runtime_error("Unknown function");
    }
