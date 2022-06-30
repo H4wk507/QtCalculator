@@ -47,15 +47,33 @@ double factorial(int n)
    return 0.0;
 }
 
+// todo: regex
 bool is_decimal(const QString &s)
 {
-   return std::all_of(s.begin(), s.end(), [](const QChar &c) {
-      return (c.isDigit() or c == '.');
-   });
+   if (s.isEmpty())
+      return false;
+
+   bool dot = false;
+   for (int i = 0; i < s.size(); i++)
+   {
+      if (s[i] == QChar('.'))
+      {
+         if (dot)
+            return false;
+         else
+            dot = true;
+      }
+      else if (!s[i].isDigit())
+         return false;
+   }
+   if (s[0] == "0" and s.size() > 1 and !dot)
+      return false;
+   return true;
 }
 
 bool is_hex(const QString &s)
 {
+   // 0x0, 0x1
    if (s.size() < 3)
       return false;
 
@@ -64,10 +82,20 @@ bool is_hex(const QString &s)
 
 bool is_bin(const QString &s)
 {
+   // 0b0, 0b1
    if (s.size() < 3)
       return false;
 
    return s.startsWith("0b", Qt::CaseInsensitive);
+}
+
+bool is_oct(const QString &s)
+{
+   // 00, 01
+   if (s.size() < 2)
+      return false;
+
+   return s.startsWith("0", Qt::CaseInsensitive) and !is_bin(s) and !is_hex(s);
 }
 
 bool is_double(double n)
@@ -153,7 +181,8 @@ ParseVal handle_operator(const QString &token)
 ParseVal base_to_dec(const ParseVal &pv, unsigned base)
 {
    bool ok;
-   QString old_num = pv.get_operator().mid(2);
+   int split = (base == 8u) ? 1 : 2;
+   QString old_num = pv.get_operator().mid(split);
    long long decimal = old_num.toLongLong(&ok, base);
 
    if (!ok)
@@ -174,7 +203,8 @@ ParseVal token_to_parseval(const QString &token)
       return handle_function(token);
 
    // if it is a number
-   else if (is_decimal(token) or is_hex(token) or is_bin(token))
+   else if (is_decimal(token) or is_hex(token) or is_bin(token) or
+            is_oct(token))
       return ParseVal(token, 100, ParseVal::Associativity::left_to_right);
 
    // unknown

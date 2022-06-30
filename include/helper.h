@@ -32,6 +32,7 @@ double factorial(int n);
 bool is_decimal(const QString &s);
 bool is_hex(const QString &s);
 bool is_bin(const QString &s);
+bool is_oct(const QString &s);
 
 /* convert a base number to decimal */
 ParseVal base_to_dec(const ParseVal &pv, unsigned base);

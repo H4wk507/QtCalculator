@@ -53,6 +53,7 @@ std::vector<ParseVal> ExpressionParser::tokenize(
 
    bool is_hex = false;
    bool is_bin = false;
+   bool is_oct = false;
    bool in_sqrt = false;
 
    for (size_t i = 0; i < exp.size(); i++)
@@ -80,6 +81,7 @@ std::vector<ParseVal> ExpressionParser::tokenize(
          function = QString();
          is_hex = false;
          is_bin = false;
+         is_oct = false;
 
          /* handle multichar operators such as ** and bitshifts seperately */
          bool handled = (handle_multichar_operator(exp, tokens, i, "**") or
@@ -105,10 +107,12 @@ std::vector<ParseVal> ExpressionParser::tokenize(
                is_hex = true;
             else if (exp[i].toLower() == "b")
                is_bin = true;
+            else
+               is_oct = true;
          }
 
          // if it is a number
-         if (is_decimal(exp[i]) or is_hex or is_bin)
+         if (is_decimal(exp[i]) or is_hex or is_bin or is_oct)
             number.append(exp[i]);
 
          // if it is a function
@@ -155,6 +159,10 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
       // hex number
       else if (is_hex(token.get_operator()))
          postfix.push_back(base_to_dec(token, 16));
+
+      // octal number
+      else if (is_oct(token.get_operator()))
+         postfix.push_back(base_to_dec(token, 8));
 
       // binary number
       else if (is_bin(token.get_operator()))
