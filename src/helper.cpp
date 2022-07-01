@@ -8,6 +8,7 @@
 #include "../include/Function.h"
 #include "../include/Operator.h"
 #include "../include/ParseVal.h"
+#include "qregularexpression.h"
 
 extern const QMap<QString, Operator> opMap;
 extern const QMap<QString, Function> funcMap;
@@ -47,55 +48,37 @@ double factorial(int n)
    return 0.0;
 }
 
-// todo: regex
+// decimal = base10
 bool is_decimal(const QString &s)
 {
-   if (s.isEmpty())
-      return false;
-
-   bool dot = false;
-   for (int i = 0; i < s.size(); i++)
-   {
-      if (s[i] == QChar('.'))
-      {
-         if (dot)
-            return false;
-         else
-            dot = true;
-      }
-      else if (!s[i].isDigit())
-         return false;
-   }
-   if (s[0] == "0" and s.size() > 1 and !dot)
-      return false;
-   return true;
+   /*
+    * a number is a decimal if:
+    * - one or zero dots (.) in number only
+    * - every character is a digit or a dot
+    * - 5. and .5 are valid, . is valid
+    * - if number starts with a 0 and has no dot its octal(no decimal)
+    */
+   static QRegularExpression decimal_regex(
+       "^(?:(?:0|[1-9]\\d*)(?:\\.\\d*)?|\\.\\d*)$");
+   return decimal_regex.match(s).hasMatch();
 }
 
 bool is_hex(const QString &s)
 {
-   // 0x0, 0x1
-   if (s.size() < 3)
-      return false;
-
-   return s.startsWith("0x", Qt::CaseInsensitive);
+   static QRegularExpression hex_regex("0[xX][0-9a-zA-Z]+");
+   return hex_regex.match(s).hasMatch();
 }
 
 bool is_bin(const QString &s)
 {
-   // 0b0, 0b1
-   if (s.size() < 3)
-      return false;
-
-   return s.startsWith("0b", Qt::CaseInsensitive);
+   static QRegularExpression bin_regex("0[bB][01]+");
+   return bin_regex.match(s).hasMatch();
 }
 
 bool is_oct(const QString &s)
 {
-   // 00, 01
-   if (s.size() < 2)
-      return false;
-
-   return s.startsWith("0", Qt::CaseInsensitive) and !is_bin(s) and !is_hex(s);
+   static QRegularExpression oct_regex("0[0-7]+");
+   return oct_regex.match(s).hasMatch();
 }
 
 bool is_double(double n)
