@@ -111,7 +111,7 @@ bool is_operator(const QString &token)
 
 bool isspace(const QString &s)
 {
-   return std::all_of(s.begin(), s.end(), [](QChar c) {
+   return std::all_of(s.begin(), s.end(), [&](const QChar &c) {
       return c == ' ';
    });
 }
@@ -181,14 +181,14 @@ ParseVal handle_operator(const QString &token)
 ParseVal base_to_dec(const ParseVal &pv, unsigned base)
 {
    bool ok;
-   int split = (base == 8u) ? 1 : 2;
-   QString old_num = pv.get_operator().mid(split);
-   long long decimal = old_num.toLongLong(&ok, base);
+   int split_at = (base == 8) ? 1 : 2;
+   QString base_number = pv.get_operator().mid(split_at);
+   long long decimal_number = base_number.toLongLong(&ok, base);
 
    if (!ok)
       throw std::runtime_error("Conversion not possible");
 
-   return ParseVal(QString::number(decimal), 100,
+   return ParseVal(QString::number(decimal_number), 100,
                    ParseVal::Associativity::left_to_right);
 }
 

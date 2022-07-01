@@ -44,8 +44,7 @@ extern const QMap<QString, Operator> opMap = {
 /* 	Convert expression (user input) to tokens
  *	which can be easily evaluated.
  */
-std::vector<ParseVal> ExpressionParser::tokenize(
-    const std::vector<QString> &exp)
+std::vector<ParseVal> ExpressionParser::tokenize(std::vector<QString> &exp)
 {
    std::vector<ParseVal> tokens;
    QString number{};
@@ -56,12 +55,14 @@ std::vector<ParseVal> ExpressionParser::tokenize(
    bool is_oct = false;
    bool in_sqrt = false;
 
+   // filter out spaces
+   exp.erase(std::remove_if(exp.begin(), exp.end(),
+                            [&](const QString &s) {
+                               return s[0].isSpace();
+                            }),
+             exp.end());
    for (size_t i = 0; i < exp.size(); i++)
    {
-      // ignore spaces
-      if (isspace(exp[i]))
-         continue;
-
       // if it is an operator
       if (is_operator(exp[i]))
       {
@@ -77,6 +78,7 @@ std::vector<ParseVal> ExpressionParser::tokenize(
             tokens.push_back(token_to_parseval("**"));
             tokens.push_back(token_to_parseval("0.5"));
          }
+
          number = QString();
          function = QString();
          is_hex = false;
@@ -90,10 +92,10 @@ std::vector<ParseVal> ExpressionParser::tokenize(
                          handle_multichar_operator(exp, tokens, i, "⁻¹"));
 
          // if not handled before
+
          if (exp[i] == "√")
-         {
             in_sqrt = true;
-         }
+
          else if (!handled)
             tokens.push_back(token_to_parseval(exp[i]));
       }
@@ -145,9 +147,6 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
    std::vector<ParseVal> stack;
    ParseVal prev_token{};
 
-   /* variable to keep in check whether
-     * we are inside absolute value or not
-     */
    bool in_abs = false;
 
    for (ParseVal &token : infix)
@@ -412,9 +411,9 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
 double ExpressionParser::eval(const QString &s)
 {
    std::vector<QString> exp;
-   for (const auto &c : s)
+   std::for_each(s.begin(), s.end(), [&](const QChar &c) {
       exp.push_back(QString(1, c));
-
+   });
    std::vector<ParseVal> tokens;
    std::vector<ParseVal> postfix;
    try

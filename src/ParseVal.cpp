@@ -55,7 +55,6 @@ bool ParseVal::is_unary(const ParseVal &prev_token, const bool &in_abs)
      * - it is '+' or '-' and (prev_token is not unary op or is NULL or is closed bracket or is comma)
      * - '!' or '~' or '|' (we do not need to test)
      */
-   qDebug() << "is_unary: " << prev_token.get_operator();
    if ((_operator == "+" or _operator == "-") and
        (prev_token.get_operator() == "NULL" or prev_token.is_comma() or
         (prev_token.get_assoc() == ParseVal::Associativity::left_to_right and
@@ -85,6 +84,8 @@ QString ParseVal::get_operator() const
 {
    return _operator;
 }
+
+/* setters */
 
 void ParseVal::set_assoc(const Associativity &associativity)
 {

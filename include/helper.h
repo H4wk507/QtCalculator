@@ -36,6 +36,7 @@ bool is_oct(const QString &s);
 
 /* convert a base number to decimal */
 ParseVal base_to_dec(const ParseVal &pv, unsigned base);
+// return true if n has a fractional part
 bool is_double(double n);
 
 /* Check if the string is an operator. Operator != function. */
