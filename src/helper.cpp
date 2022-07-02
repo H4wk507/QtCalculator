@@ -127,6 +127,7 @@ ParseVal handle_operator(const QString &token)
       case Operator::OPERATOR_EXPONENT:
          return ParseVal("E", 8, ParseVal::Associativity::right_to_left);
       case Operator::OPERATOR_POWER:
+         // I think power should be RTL but it messes up sqrt, so it is LTR
          return ParseVal("**", 7, ParseVal::Associativity::left_to_right);
       case Operator::OPERATOR_MODULO:
          return ParseVal("%", 6, ParseVal::Associativity::left_to_right);
