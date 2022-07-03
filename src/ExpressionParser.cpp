@@ -1,4 +1,5 @@
 #include "../include/ExpressionParser.h"
+#include <QDebug>
 #include <QMap>
 #include <cmath>
 #include <unordered_map>
@@ -6,8 +7,6 @@
 #include "../include/Operator.h"
 #include "../include/ParseVal.h"
 #include "../include/helper.h"
-// debug
-#include <QDebug>
 
 /* map from std::string to enum Function. */
 extern const QMap<QString, Function> funcMap = {
@@ -54,7 +53,6 @@ std::vector<ParseVal> ExpressionParser::tokenize(std::vector<QString> &exp)
    bool is_hex = false;
    bool is_bin = false;
    bool is_oct = false;
-   bool in_sqrt = false;
 
    // filter out spaces
    exp.erase(std::remove_if(exp.begin(), exp.end(),
@@ -119,12 +117,6 @@ std::vector<ParseVal> ExpressionParser::tokenize(std::vector<QString> &exp)
    if (!function.isEmpty())
       tokens.push_back(token_to_parseval(function));
 
-   if (in_sqrt)
-   {
-      tokens.push_back(token_to_parseval("**"));
-      tokens.push_back(token_to_parseval("0.5"));
-   }
-
    for (size_t i = 0; i < tokens.size(); i++)
       qInfo() << tokens[i].get_operator() << '\n';
    return tokens;
@@ -183,9 +175,9 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
          if (token.get_operator() == "!")
             postfix.push_back(token);
 
-         // if number before opening parentheses treat it as multiplication
-         if (token.is_open_paren(in_abs) and
-             is_decimal(prev_token.get_operator()) and !in_abs)
+         // if number before opening parentheses or sqrt treat it as multiplication
+         if ((token.is_open_paren(in_abs) or token.get_operator() == "√") and
+             is_decimal(prev_token.get_operator()))
             stack.push_back(token_to_parseval("*"));
 
          if (!token.is_closed_paren(in_abs) and !token.is_comma() and

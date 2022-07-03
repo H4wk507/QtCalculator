@@ -29,6 +29,8 @@ set(PROJECT_SOURCES
       include/Operator.h
       include/ParseVal.h
       src/ParseVal.cpp
+      src/Test.cpp
+      include/Test.h
       ${TS_FILES}
 )
 

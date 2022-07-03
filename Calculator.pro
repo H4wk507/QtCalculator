@@ -19,14 +19,16 @@ HEADERS += ui_calculator.h \
            include/Function.h \
            include/helper.h \
            include/Operator.h \
-           include/ParseVal.h 
+           include/ParseVal.h  \
+           src/test.h
 
 FORMS += calculator.ui
 
 SOURCES += src/calculator.cpp \
            src/ExpressionParser.cpp \
+           src/Test.cpp \
            src/helper.cpp \
            src/main.cpp \
-           src/ParseVal.cpp 
+           src/ParseVal.cpp
 
 TRANSLATIONS += Calculator_pl_PL.ts 

@@ -57,10 +57,11 @@ bool ParseVal::is_unary(const ParseVal &prev_token, const bool &in_abs)
      */
    if ((_operator == "+" or _operator == "-") and
        (prev_token.get_operator() == "NULL" or prev_token.is_comma() or
+        (prev_token.get_operator() == "|" and in_abs) or
         (prev_token.get_assoc() == ParseVal::Associativity::left_to_right and
          (is_operator(prev_token.get_operator()) and
-          !prev_token.is_closed_paren(in_abs)))) and
-       prev_token.get_operator() != "|")
+          prev_token.get_operator() != "|" and
+          prev_token.get_operator() != ")"))))
    {
       set_assoc(ParseVal::Associativity::right_to_left);
       return true;

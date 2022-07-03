@@ -1,12 +1,15 @@
 #include "../include/calculator.h"
 #include <QDebug>
 #include "../include/ExpressionParser.h"
+#include "../include/Test.h"
 #include "../ui_calculator.h"
 
 Calculator::Calculator(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Calculator)
 {
+   //Test test{};
+
    ui->setupUi(this);
 
    ui->Input->setPlaceholderText("");
