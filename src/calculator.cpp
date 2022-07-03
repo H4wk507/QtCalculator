@@ -79,13 +79,7 @@ void Calculator::NumPressed()
    QString butVal = button->text();
    QString displayVal = ui->Input->text();
 
-   static QRegularExpression reg("^[^\\da-fA-F]+$");
-   QRegularExpressionMatch match = reg.match(displayVal);
-
-   if (match.hasMatch())
-      ui->Input->setText(butVal);
-   else
-      ui->Input->setText(displayVal + butVal);
+   ui->Input->setText(displayVal + butVal);
 }
 
 // handle math expressions
@@ -118,13 +112,7 @@ void Calculator::MathButtonPressed()
    else if (butVal == "|x|")
       butVal = "|";
 
-   static QRegularExpression reg("^[^\\d]+$");
-   QRegularExpressionMatch match = reg.match(displayVal);
-   if (match.hasMatch() &&
-       (butVal == "-" || butVal == "(" || butVal == ")" || butVal == "."))
-      displayVal = butVal;
-   else
-      displayVal += butVal;
+   displayVal += butVal;
 
    ui->Input->setText(displayVal);
 }

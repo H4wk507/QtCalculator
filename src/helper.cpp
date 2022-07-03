@@ -89,7 +89,7 @@ bool is_double(double n)
 bool is_operator(const QString &token)
 {
    return (opMap.find(token) != opMap.end() or token == "<" or token == ">" or
-           token == "⁻" or token == "√");
+           token == "⁻");
 }
 
 bool isspace(const QString &s)
@@ -127,8 +127,7 @@ ParseVal handle_operator(const QString &token)
       case Operator::OPERATOR_EXPONENT:
          return ParseVal("E", 8, ParseVal::Associativity::right_to_left);
       case Operator::OPERATOR_POWER:
-         // I think power should be RTL but it messes up sqrt, so it is LTR
-         return ParseVal("**", 7, ParseVal::Associativity::left_to_right);
+         return ParseVal("**", 7, ParseVal::Associativity::right_to_left);
       case Operator::OPERATOR_MODULO:
          return ParseVal("%", 6, ParseVal::Associativity::left_to_right);
       case Operator::OPERATOR_MULTIPLICATION:
@@ -148,7 +147,7 @@ ParseVal handle_operator(const QString &token)
       case Operator::OPERATOR_BITWISE_AND:
          return ParseVal("&", 2, ParseVal::Associativity::left_to_right);
       case Operator::OPERATOR_BITWISE_OR:
-         return ParseVal("q", 1, ParseVal::Associativity::left_to_right);
+         return ParseVal("∨", 1, ParseVal::Associativity::left_to_right);
       case Operator::OPERATOR_ABS:
          return ParseVal("|", 0, ParseVal::Associativity::left_to_right);
       case Operator::OPERATOR_CLOSED_BRACKET:
@@ -157,6 +156,8 @@ ParseVal handle_operator(const QString &token)
          return ParseVal("(", -2, ParseVal::Associativity::left_to_right);
       case Operator::OPERATOR_COMMA:
          return ParseVal(",", -1, ParseVal::Associativity::left_to_right);
+      case Operator::OPERATOR_SQRT:
+         return ParseVal("√", 7, ParseVal::Associativity::left_to_right);
       default:
          throw std::runtime_error("handle_operator: Unknown operator");
    }

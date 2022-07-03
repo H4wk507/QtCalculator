@@ -34,11 +34,12 @@ extern const QMap<QString, Operator> opMap = {
     {"⊻", Operator::OPERATOR_BITWISE_XOR},
     {"&", Operator::OPERATOR_BITWISE_AND},
     {"∧", Operator::OPERATOR_BITWISE_AND},
+    {"∨", Operator::OPERATOR_BITWISE_OR},
     {"|", Operator::OPERATOR_ABS},
     {"(", Operator::OPERATOR_OPEN_BRACKET},
     {")", Operator::OPERATOR_CLOSED_BRACKET},
-    {"∨", Operator::OPERATOR_BITWISE_OR},
     {",", Operator::OPERATOR_COMMA},
+    {"√", Operator::OPERATOR_SQRT},
 };
 
 /* 	Convert expression (user input) to tokens
@@ -72,13 +73,6 @@ std::vector<ParseVal> ExpressionParser::tokenize(std::vector<QString> &exp)
          if (!function.isEmpty())
             tokens.push_back(token_to_parseval(function));
 
-         if (in_sqrt)
-         {
-            in_sqrt = false;
-            tokens.push_back(token_to_parseval("**"));
-            tokens.push_back(token_to_parseval("0.5"));
-         }
-
          number = QString();
          function = QString();
          is_hex = false;
@@ -92,17 +86,14 @@ std::vector<ParseVal> ExpressionParser::tokenize(std::vector<QString> &exp)
                          handle_multichar_operator(exp, tokens, i, "⁻¹"));
 
          // if not handled before
-
-         if (exp[i] == "√")
-            in_sqrt = true;
-
-         else if (!handled)
+         if (!handled)
             tokens.push_back(token_to_parseval(exp[i]));
       }
 
       // if it is a number or a function
       else
       {
+         // REGEX HERE IDK? BRIEF THOUGHT
          if (number == "0")
          {
             if (exp[i].toLower() == "x")
@@ -356,6 +347,14 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                       "Boolean OR is only defined for integers");
                eval_stack.push_back(static_cast<long long>(n1) |
                                     static_cast<long long>(n2));
+               break;
+
+            case Operator::OPERATOR_SQRT:
+               n1 = poptop(eval_stack);
+               if (n1 < 0)
+                  throw std::runtime_error("Square root is only defined for "
+                                           "non-negative real numbers");
+               eval_stack.push_back(std::pow(n1, 0.5));
                break;
 
             default:
