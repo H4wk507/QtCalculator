@@ -37,7 +37,7 @@ bool is_oct(const QString &s);
 /* convert a base number to decimal */
 ParseVal base_to_dec(const ParseVal &pv, unsigned base);
 // return true if n has a fractional part
-bool is_double(double n);
+bool is_double(const QString &n);
 
 /* Check if the string is an operator. Operator != function. */
 bool is_operator(const QString &token);
@@ -47,6 +47,8 @@ bool is_closed_paren(const ParseVal &token, const bool &in_abs);
 
 /* isspace for strings */
 bool isspace(const QString &s);
+
+bool is_variable(const QString &token);
 
 /* Check if the token is an unary operator. */
 bool is_unary(ParseVal &token, const ParseVal &prev_token, const bool &in_abs);

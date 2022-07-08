@@ -12,6 +12,7 @@
 
 extern const QMap<QString, Operator> opMap;
 extern const QMap<QString, Function> funcMap;
+extern QMap<QString, QString> varMap;
 
 double gcd(double a, double b)
 {
@@ -81,9 +82,9 @@ bool is_oct(const QString &s)
    return oct_regex.match(s).hasMatch();
 }
 
-bool is_double(double n)
+bool is_double(const QString &n)
 {
-   return !(floor(n) == n);
+   return !(floor(n.toDouble()) == n.toDouble());
 }
 
 bool is_operator(const QString &token)
@@ -97,6 +98,11 @@ bool isspace(const QString &s)
    return std::all_of(s.begin(), s.end(), [&](const QChar &c) {
       return c == ' ';
    });
+}
+
+bool is_variable(const QString &token)
+{
+   return (varMap.find(token) != varMap.end());
 }
 
 ParseVal handle_function(const QString &token)
@@ -158,6 +164,8 @@ ParseVal handle_operator(const QString &token)
          return ParseVal(",", -1, ParseVal::Associativity::left_to_right);
       case Operator::OPERATOR_SQRT:
          return ParseVal("√", 7, ParseVal::Associativity::left_to_right);
+      case Operator::OPERATOR_EQUAL:
+         return ParseVal("=", -1, ParseVal::Associativity::left_to_right);
       default:
          throw std::runtime_error("handle_operator: Unknown operator");
    }
@@ -192,9 +200,9 @@ ParseVal token_to_parseval(const QString &token)
             is_oct(token))
       return ParseVal(token, 100, ParseVal::Associativity::left_to_right);
 
-   // unknown
+   // variable
    else
-      throw std::runtime_error("token_to_parseval: Unknown operator");
+      return ParseVal(token, 100, ParseVal::Associativity::left_to_right);
 }
 
 bool handle_multichar_operator(const std::vector<QString> &exp,

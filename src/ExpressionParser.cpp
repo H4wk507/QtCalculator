@@ -39,7 +39,10 @@ extern const QMap<QString, Operator> opMap = {
     {")", Operator::OPERATOR_CLOSED_BRACKET},
     {",", Operator::OPERATOR_COMMA},
     {"√", Operator::OPERATOR_SQRT},
+    {"=", Operator::OPERATOR_EQUAL},
 };
+
+QMap<QString, QString> varMap = {};
 
 /* 	Convert expression (user input) to tokens
  *	which can be easily evaluated.
@@ -47,6 +50,7 @@ extern const QMap<QString, Operator> opMap = {
 std::vector<ParseVal> ExpressionParser::tokenize(std::vector<QString> &exp)
 {
    std::vector<ParseVal> tokens;
+
    QString number{};
    QString function{};
 
@@ -91,7 +95,6 @@ std::vector<ParseVal> ExpressionParser::tokenize(std::vector<QString> &exp)
       // if it is a number or a function
       else
       {
-         // REGEX HERE IDK? BRIEF THOUGHT
          if (number == "0")
          {
             if (exp[i].toLower() == "x")
@@ -107,7 +110,7 @@ std::vector<ParseVal> ExpressionParser::tokenize(std::vector<QString> &exp)
             number.append(exp[i]);
 
          // if it is a function
-         else
+         else  // nie wiemy czy funkcja czy zmienna
             function.append(exp[i].toLower());
       }
    }
@@ -192,6 +195,9 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
       else if (token.is_function())
          stack.push_back(token);
 
+      // variable
+      else
+         stack.push_back(token);
       prev_token = token;
    }
    while (!stack.empty())
@@ -208,7 +214,7 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
 /* Evaluate RPN using stack method. */
 double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
 {
-   std::vector<double> eval_stack;
+   std::vector<QString> eval_stack;
 
    for (const ParseVal &token : postfix)
    {
@@ -218,135 +224,225 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
          if (eval_stack.size() < 1)
             throw std::runtime_error("Malformed expression");
 
-         double n1{};
-         double n2{};
+         QString n1{};
+         QString n2{};
          switch (opMap.value(token.get_operator()))
          {
             case Operator::OPERATOR_BITWISE_NOT:
                n1 = poptop(eval_stack);
+               if (is_variable(n1))
+                  n1 = varMap.value(n1);
                if (is_double(n1))
                   throw std::runtime_error(
                       "Boolean NOT is only defined for integers");
-               eval_stack.push_back(~static_cast<long long>(n1));
+               eval_stack.push_back(QString::number(
+                   ~static_cast<long long>(n1.toDouble()), 'f', 0));
                break;
 
             case Operator::OPERATOR_FACTORIAL:
-               eval_stack.push_back(factorial(poptop(eval_stack)));
+               n1 = poptop(eval_stack);
+               if (is_variable(n1))
+                  n1 = varMap.value(n1);
+               eval_stack.push_back(
+                   QString::number(factorial(n1.toDouble()), 'f', 0));
                break;
 
             case Operator::OPERATOR_EXPONENT:
                n1 = poptop(eval_stack);
-               eval_stack.push_back(poptop(eval_stack) * std::pow(10, n1));
+               n2 = poptop(eval_stack);
+
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
+
+               eval_stack.push_back(QString::number(
+                   n2.toDouble() * std::pow(10, n1.toDouble()), 'f', 0));
                break;
 
             case Operator::OPERATOR_ADDITION:
                n1 = poptop(eval_stack);
                if (token.get_assoc() == ParseVal::Associativity::left_to_right)
+               {
                   n2 = poptop(eval_stack);
-               eval_stack.push_back(n1 + n2);
+                  if (is_variable(n2))
+                     n2 = varMap.value(n2);
+               }
+               if (is_variable(n1))
+                  n1 = varMap.value(n1);
+               eval_stack.push_back(
+                   QString::number(n1.toDouble() + n2.toDouble(), 'f', 0));
                break;
 
             case Operator::OPERATOR_SUBTRACTION:
                n1 = poptop(eval_stack);
                if (token.get_assoc() == ParseVal::Associativity::left_to_right)
+               {
                   n2 = poptop(eval_stack);
-               eval_stack.push_back(n2 - n1);
+                  if (is_variable(n2))
+                     n2 = varMap.value(n2);
+               }
+               if (is_variable(n1))
+                  n1 = varMap.value(n1);
+               eval_stack.push_back(
+                   QString::number(n2.toDouble() - n1.toDouble(), 'f', 0));
                break;
 
             case Operator::OPERATOR_MULTIPLICATION:
-               eval_stack.push_back(poptop(eval_stack) * poptop(eval_stack));
+               n1 = poptop(eval_stack);
+               n2 = poptop(eval_stack);
+
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
+
+               eval_stack.push_back(
+                   QString::number(n1.toDouble() * n2.toDouble(), 'f', 0));
                break;
 
             case Operator::OPERATOR_POWER:
                n1 = poptop(eval_stack);
                n2 = poptop(eval_stack);
 
-               if (n1 == 0.0 and n2 == 0.0)
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
+
+               if (n1.toDouble() == 0.0 and n2.toDouble() == 0.0)
                   throw std::runtime_error("Zero raised to zero is undefined");
-               eval_stack.push_back(std::pow(n2, n1));
+               eval_stack.push_back(QString::number(
+                   std::pow(n2.toDouble(), n1.toDouble()), 'f', 0));
                break;
 
             case Operator::OPERATOR_DIVISION:
                n1 = poptop(eval_stack);
-               if (n1 == 0.0)
+               n2 = poptop(eval_stack);
+
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
+
+               if (n1.toDouble() == 0.0)
                   throw std::runtime_error("Division by zero is undefined");
 
-               eval_stack.push_back(poptop(eval_stack) / n1);
+               eval_stack.push_back(
+                   QString::number(n2.toDouble() / n1.toDouble(), 'f'));
                break;
 
             case Operator::OPERATOR_MODULO:
                n1 = poptop(eval_stack);
                n2 = poptop(eval_stack);
+
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
+
                if (is_double(n1) or is_double(n2))
                   throw std::runtime_error(
                       "Modulus division is only defined for integers");
-               if (n1 == 0)
+               if (n1.toDouble() == 0.0)
                   throw std::runtime_error("Division by zero is undefined");
-               eval_stack.push_back(static_cast<long long>(n2) %
-                                    static_cast<long long>(n1));
+               eval_stack.push_back(
+                   QString::number(static_cast<long long>(n2.toDouble()) %
+                                       static_cast<long long>(n1.toDouble()),
+                                   'f', 0));
                break;
 
             case Operator::OPERATOR_BITWISE_SHL:
                n1 = poptop(eval_stack);
                n2 = poptop(eval_stack);
+
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
+
                if (is_double(n2))
                   throw std::runtime_error(
                       "Shift is only possible on integer values");
-               eval_stack.push_back(static_cast<long long>(n2)
-                                    << static_cast<long long>(n1));
+               eval_stack.push_back(
+                   QString::number(static_cast<long long>(n2.toDouble())
+                                       << static_cast<long long>(n1.toDouble()),
+                                   'f', 0));
                break;
 
             case Operator::OPERATOR_BITWISE_SHR:
                n1 = poptop(eval_stack);
                n2 = poptop(eval_stack);
+
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
+
                if (is_double(n2))
                   throw std::runtime_error(
                       "Shift is only possible on integer values");
-               eval_stack.push_back(static_cast<long long>(n2) >>
-                                    static_cast<long long>(n1));
+               eval_stack.push_back(
+                   QString::number(static_cast<long long>(n2.toDouble()) >>
+                                       static_cast<long long>(n1.toDouble()),
+                                   'f', 0));
                break;
 
             case Operator::OPERATOR_BITWISE_XOR:
                n1 = poptop(eval_stack);
                n2 = poptop(eval_stack);
+
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
+
                if (is_double(n1) or is_double(n2))
                   throw std::runtime_error(
                       "Boolean XOR is only defined for integers");
-               eval_stack.push_back(static_cast<long long>(n1) ^
-                                    static_cast<long long>(n2));
+               eval_stack.push_back(
+                   QString::number(static_cast<long long>(n1.toDouble()) ^
+                                       static_cast<long long>(n2.toDouble()),
+                                   'f', 0));
                break;
 
             case Operator::OPERATOR_BITWISE_AND:
                n1 = poptop(eval_stack);
                n2 = poptop(eval_stack);
+
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
+
                if (is_double(n1) or is_double(n2))
                   throw std::runtime_error(
                       "Boolean AND is only defined for integers");
-               eval_stack.push_back(static_cast<long long>(n1) &
-                                    static_cast<long long>(n2));
+               eval_stack.push_back(
+                   QString::number(static_cast<long long>(n1.toDouble()) &
+                                       static_cast<long long>(n2.toDouble()),
+                                   'f', 0));
                break;
 
             case Operator::OPERATOR_ABS:
                n1 = poptop(eval_stack);
-               eval_stack.push_back((n1 < 0) ? -n1 : n1);
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               eval_stack.push_back(
+                   (n1.toDouble() < 0)
+                       ? QString::number(-1 * n1.toDouble(), 'f', 0)
+                       : n1);
                break;
 
             case Operator::OPERATOR_BITWISE_OR:
                n1 = poptop(eval_stack);
                n2 = poptop(eval_stack);
+
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
+
                if (is_double(n1) or is_double(n2))
                   throw std::runtime_error(
                       "Boolean OR is only defined for integers");
-               eval_stack.push_back(static_cast<long long>(n1) |
-                                    static_cast<long long>(n2));
+               eval_stack.push_back(
+                   QString::number(static_cast<long long>(n1.toDouble()) |
+                                       static_cast<long long>(n2.toDouble()),
+                                   'f', 0));
                break;
 
             case Operator::OPERATOR_SQRT:
                n1 = poptop(eval_stack);
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
                if (n1 < 0)
                   throw std::runtime_error("Square root is only defined for "
                                            "non-negative real numbers");
-               eval_stack.push_back(std::pow(n1, 0.5));
+               eval_stack.push_back(
+                   QString::number(std::pow(n1.toDouble(), 0.5), 'f', 0));
+               break;
+            case Operator::OPERATOR_EQUAL:
+               n1 = poptop(eval_stack);
+               varMap[poptop(eval_stack)] = n1;
                break;
 
             default:
@@ -357,26 +453,50 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
       // if token is a function
       else if (token.is_function())
       {
+         QString n1{};
+         QString n2{};
          switch (funcMap.value(token.get_operator()))
          {
             case Function::FUNCTION_SINE:
-               eval_stack.push_back(sin(poptop(eval_stack)));
+               n1 = poptop(eval_stack);
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               eval_stack.push_back(
+                   QString::number(sin(n1.toDouble()), 'f', 0));
                break;
             case Function::FUNCTION_COS:
-               eval_stack.push_back(cos(poptop(eval_stack)));
+               n1 = poptop(eval_stack);
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               eval_stack.push_back(
+                   QString::number(cos(n1.toDouble()), 'f', 0));
                break;
             case Function::FUNCTION_GCD:
                if (eval_stack.size() >= 2)
-                  eval_stack.push_back(
-                      gcd(poptop(eval_stack), poptop(eval_stack)));
+               {
+                  n1 = poptop(eval_stack);
+                  n2 = poptop(eval_stack);
+
+                  n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+                  n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
+
+                  eval_stack.push_back(QString::number(
+                      gcd(n1.toDouble(), n2.toDouble()), 'f', 0));
+               }
                else
                   throw std::runtime_error(
                       "gcd supports only 2 vars at the moment");
                break;
             case Function::FUNCTION_LCM:
                if (eval_stack.size() >= 2)
-                  eval_stack.push_back(
-                      lcm(poptop(eval_stack), poptop(eval_stack)));
+               {
+                  n1 = poptop(eval_stack);
+                  n2 = poptop(eval_stack);
+
+                  n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+                  n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
+
+                  eval_stack.push_back(QString::number(
+                      lcm(n1.toDouble(), n2.toDouble()), 'f', 0));
+               }
                else
                   throw std::runtime_error(
                       "lcm supports only 2 vars at the moment");
@@ -387,15 +507,27 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
       }
 
       // if token is a number, push it to the eval_stack
+      else if (is_decimal(token.get_operator()))
+         eval_stack.push_back(token.get_operator());
+
+      // if variable
       else
-         eval_stack.push_back(token.get_operator().toDouble());
+         eval_stack.push_back(token.get_operator());
    }
 
    // evaluates only if no input provided
    if (eval_stack.empty())
       return 0.0;
    else
-      return eval_stack.front();
+   {
+      if (is_variable(eval_stack.front()))
+         return varMap.value(eval_stack.front()).toDouble();
+      else
+      {
+         qInfo() << eval_stack.front();
+         return eval_stack.front().toDouble();
+      }
+   }
 }
 
 /* evaluate std::string */
