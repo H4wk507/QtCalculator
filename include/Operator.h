@@ -21,4 +21,5 @@ enum class Operator {
    OPERATOR_BITWISE_OR,
    OPERATOR_COMMA,
    OPERATOR_SQRT,
+   OPERATOR_EQUAL,
 };

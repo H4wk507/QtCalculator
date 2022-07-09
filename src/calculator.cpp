@@ -122,7 +122,7 @@ void Calculator::MathButtonPressed()
 
 void Calculator::EqualButtonPressed()
 {
-   double solution;
+   QString solution;
    QString displayVal = ui->Input->text();
 
    try
@@ -134,7 +134,7 @@ void Calculator::EqualButtonPressed()
       ui->Input->setText(e.what());
       return;
    }
-   ui->Input->setText(QString::number(solution));
+   ui->Input->setText(solution);
 }
 
 void Calculator::EnterButtonPressed()
