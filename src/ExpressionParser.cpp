@@ -109,8 +109,8 @@ std::vector<ParseVal> ExpressionParser::tokenize(std::vector<QString> &exp)
          if (is_decimal(exp[i]) or is_hex or is_bin or is_oct)
             number.append(exp[i]);
 
-         // if it is a function
-         else  // nie wiemy czy funkcja czy zmienna
+         // if it is a function or a variable
+         else
             function.append(exp[i].toLower());
       }
    }
@@ -120,8 +120,8 @@ std::vector<ParseVal> ExpressionParser::tokenize(std::vector<QString> &exp)
    if (!function.isEmpty())
       tokens.push_back(token_to_parseval(function));
 
-   for (size_t i = 0; i < tokens.size(); i++)
-      qInfo() << tokens[i].get_operator() << '\n';
+   //for (size_t i = 0; i < tokens.size(); i++)
+   //   qInfo() << tokens[i].get_operator() << '\n';
    return tokens;
 }
 
@@ -191,23 +191,22 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
          if (token.get_operator() == "|")
             in_abs = !in_abs;
       }
-      // potential function found
+      // function or variable
       else if (token.is_function())
          stack.push_back(token);
 
-      // variable
-      else
-         stack.push_back(token);
       prev_token = token;
    }
+
    while (!stack.empty())
    {
       postfix.push_back(stack.back());
       stack.pop_back();
    }
-   qInfo() << "////////////////\n";
-   for (size_t i = 0; i < postfix.size(); i++)
-      qInfo() << postfix[i].get_operator() << '\n';
+
+   //qInfo() << "////////////////\n";
+   //for (size_t i = 0; i < postfix.size(); i++)
+   //   qInfo() << postfix[i].get_operator() << '\n';
    return postfix;
 }
 
@@ -230,8 +229,7 @@ QString ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
          {
             case Operator::OPERATOR_BITWISE_NOT:
                n1 = poptop(eval_stack);
-               if (is_variable(n1))
-                  n1 = varMap.value(n1);
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
                if (is_double(n1))
                   throw std::runtime_error(
                       "Boolean NOT is only defined for integers");
@@ -241,8 +239,10 @@ QString ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
 
             case Operator::OPERATOR_FACTORIAL:
                n1 = poptop(eval_stack);
-               if (is_variable(n1))
-                  n1 = varMap.value(n1);
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               if (is_double(n1))
+                  throw std::runtime_error(
+                      "Factorial is only defined for non-negative integers");
                eval_stack.push_back(toString(factorial(n1.toDouble())));
                break;
 
@@ -260,26 +260,22 @@ QString ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
             case Operator::OPERATOR_ADDITION:
                n1 = poptop(eval_stack);
                if (token.get_assoc() == ParseVal::Associativity::left_to_right)
-               {
                   n2 = poptop(eval_stack);
-                  if (is_variable(n2))
-                     n2 = varMap.value(n2);
-               }
-               if (is_variable(n1))
-                  n1 = varMap.value(n1);
+
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
+
                eval_stack.push_back(toString(n1.toDouble() + n2.toDouble()));
                break;
 
             case Operator::OPERATOR_SUBTRACTION:
                n1 = poptop(eval_stack);
                if (token.get_assoc() == ParseVal::Associativity::left_to_right)
-               {
                   n2 = poptop(eval_stack);
-                  if (is_variable(n2))
-                     n2 = varMap.value(n2);
-               }
-               if (is_variable(n1))
-                  n1 = varMap.value(n1);
+
+               n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
+               n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
+
                eval_stack.push_back(toString(n2.toDouble() - n1.toDouble()));
                break;
 
@@ -490,12 +486,8 @@ QString ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
          }
       }
 
-      // if token is a number, push it to the eval_stack
+      // if token is a number or a variable, push it to the eval_stack
       else if (is_decimal(token.get_operator()))
-         eval_stack.push_back(token.get_operator());
-
-      // if variable
-      else
          eval_stack.push_back(token.get_operator());
    }
 
