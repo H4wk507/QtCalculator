@@ -212,7 +212,7 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
 }
 
 /* Evaluate RPN using stack method. */
-double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
+QString ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
 {
    std::vector<QString> eval_stack;
 
@@ -235,16 +235,15 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                if (is_double(n1))
                   throw std::runtime_error(
                       "Boolean NOT is only defined for integers");
-               eval_stack.push_back(QString::number(
-                   ~static_cast<long long>(n1.toDouble()), 'f', 0));
+               eval_stack.push_back(
+                   toString(~static_cast<long long>(n1.toDouble())));
                break;
 
             case Operator::OPERATOR_FACTORIAL:
                n1 = poptop(eval_stack);
                if (is_variable(n1))
                   n1 = varMap.value(n1);
-               eval_stack.push_back(
-                   QString::number(factorial(n1.toDouble()), 'f', 0));
+               eval_stack.push_back(toString(factorial(n1.toDouble())));
                break;
 
             case Operator::OPERATOR_EXPONENT:
@@ -254,8 +253,8 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
                n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
 
-               eval_stack.push_back(QString::number(
-                   n2.toDouble() * std::pow(10, n1.toDouble()), 'f', 0));
+               eval_stack.push_back(
+                   toString(n2.toDouble() * std::pow(10, n1.toDouble())));
                break;
 
             case Operator::OPERATOR_ADDITION:
@@ -268,8 +267,7 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                }
                if (is_variable(n1))
                   n1 = varMap.value(n1);
-               eval_stack.push_back(
-                   QString::number(n1.toDouble() + n2.toDouble(), 'f', 0));
+               eval_stack.push_back(toString(n1.toDouble() + n2.toDouble()));
                break;
 
             case Operator::OPERATOR_SUBTRACTION:
@@ -282,8 +280,7 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                }
                if (is_variable(n1))
                   n1 = varMap.value(n1);
-               eval_stack.push_back(
-                   QString::number(n2.toDouble() - n1.toDouble(), 'f', 0));
+               eval_stack.push_back(toString(n2.toDouble() - n1.toDouble()));
                break;
 
             case Operator::OPERATOR_MULTIPLICATION:
@@ -293,8 +290,7 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
                n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
 
-               eval_stack.push_back(
-                   QString::number(n1.toDouble() * n2.toDouble(), 'f', 0));
+               eval_stack.push_back(toString(n1.toDouble() * n2.toDouble()));
                break;
 
             case Operator::OPERATOR_POWER:
@@ -306,8 +302,8 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
 
                if (n1.toDouble() == 0.0 and n2.toDouble() == 0.0)
                   throw std::runtime_error("Zero raised to zero is undefined");
-               eval_stack.push_back(QString::number(
-                   std::pow(n2.toDouble(), n1.toDouble()), 'f', 0));
+               eval_stack.push_back(
+                   toString(std::pow(n2.toDouble(), n1.toDouble())));
                break;
 
             case Operator::OPERATOR_DIVISION:
@@ -320,8 +316,7 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                if (n1.toDouble() == 0.0)
                   throw std::runtime_error("Division by zero is undefined");
 
-               eval_stack.push_back(
-                   QString::number(n2.toDouble() / n1.toDouble(), 'f'));
+               eval_stack.push_back(toString(n2.toDouble() / n1.toDouble()));
                break;
 
             case Operator::OPERATOR_MODULO:
@@ -337,9 +332,8 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                if (n1.toDouble() == 0.0)
                   throw std::runtime_error("Division by zero is undefined");
                eval_stack.push_back(
-                   QString::number(static_cast<long long>(n2.toDouble()) %
-                                       static_cast<long long>(n1.toDouble()),
-                                   'f', 0));
+                   toString(static_cast<long long>(n2.toDouble()) %
+                            static_cast<long long>(n1.toDouble())));
                break;
 
             case Operator::OPERATOR_BITWISE_SHL:
@@ -353,9 +347,8 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                   throw std::runtime_error(
                       "Shift is only possible on integer values");
                eval_stack.push_back(
-                   QString::number(static_cast<long long>(n2.toDouble())
-                                       << static_cast<long long>(n1.toDouble()),
-                                   'f', 0));
+                   toString(static_cast<long long>(n2.toDouble())
+                            << static_cast<long long>(n1.toDouble())));
                break;
 
             case Operator::OPERATOR_BITWISE_SHR:
@@ -369,9 +362,8 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                   throw std::runtime_error(
                       "Shift is only possible on integer values");
                eval_stack.push_back(
-                   QString::number(static_cast<long long>(n2.toDouble()) >>
-                                       static_cast<long long>(n1.toDouble()),
-                                   'f', 0));
+                   toString(static_cast<long long>(n2.toDouble()) >>
+                            static_cast<long long>(n1.toDouble())));
                break;
 
             case Operator::OPERATOR_BITWISE_XOR:
@@ -385,9 +377,8 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                   throw std::runtime_error(
                       "Boolean XOR is only defined for integers");
                eval_stack.push_back(
-                   QString::number(static_cast<long long>(n1.toDouble()) ^
-                                       static_cast<long long>(n2.toDouble()),
-                                   'f', 0));
+                   toString(static_cast<long long>(n1.toDouble()) ^
+                            static_cast<long long>(n2.toDouble())));
                break;
 
             case Operator::OPERATOR_BITWISE_AND:
@@ -401,18 +392,15 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                   throw std::runtime_error(
                       "Boolean AND is only defined for integers");
                eval_stack.push_back(
-                   QString::number(static_cast<long long>(n1.toDouble()) &
-                                       static_cast<long long>(n2.toDouble()),
-                                   'f', 0));
+                   toString(static_cast<long long>(n1.toDouble()) &
+                            static_cast<long long>(n2.toDouble())));
                break;
 
             case Operator::OPERATOR_ABS:
                n1 = poptop(eval_stack);
                n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
                eval_stack.push_back(
-                   (n1.toDouble() < 0)
-                       ? QString::number(-1 * n1.toDouble(), 'f', 0)
-                       : n1);
+                   (n1.toDouble() < 0) ? toString(-1.0 * n1.toDouble()) : n1);
                break;
 
             case Operator::OPERATOR_BITWISE_OR:
@@ -426,9 +414,8 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                   throw std::runtime_error(
                       "Boolean OR is only defined for integers");
                eval_stack.push_back(
-                   QString::number(static_cast<long long>(n1.toDouble()) |
-                                       static_cast<long long>(n2.toDouble()),
-                                   'f', 0));
+                   toString(static_cast<long long>(n1.toDouble()) |
+                            static_cast<long long>(n2.toDouble())));
                break;
 
             case Operator::OPERATOR_SQRT:
@@ -437,8 +424,7 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                if (n1 < 0)
                   throw std::runtime_error("Square root is only defined for "
                                            "non-negative real numbers");
-               eval_stack.push_back(
-                   QString::number(std::pow(n1.toDouble(), 0.5), 'f', 0));
+               eval_stack.push_back(toString(std::pow(n1.toDouble(), 0.5)));
                break;
             case Operator::OPERATOR_EQUAL:
                n1 = poptop(eval_stack);
@@ -460,14 +446,12 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
             case Function::FUNCTION_SINE:
                n1 = poptop(eval_stack);
                n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
-               eval_stack.push_back(
-                   QString::number(sin(n1.toDouble()), 'f', 0));
+               eval_stack.push_back(toString(sin(n1.toDouble())));
                break;
             case Function::FUNCTION_COS:
                n1 = poptop(eval_stack);
                n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
-               eval_stack.push_back(
-                   QString::number(cos(n1.toDouble()), 'f', 0));
+               eval_stack.push_back(toString(cos(n1.toDouble())));
                break;
             case Function::FUNCTION_GCD:
                if (eval_stack.size() >= 2)
@@ -478,8 +462,8 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                   n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
                   n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
 
-                  eval_stack.push_back(QString::number(
-                      gcd(n1.toDouble(), n2.toDouble()), 'f', 0));
+                  eval_stack.push_back(
+                      toString(gcd(n1.toDouble(), n2.toDouble())));
                }
                else
                   throw std::runtime_error(
@@ -494,8 +478,8 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
                   n1 = (is_variable(n1)) ? varMap.value(n1) : n1;
                   n2 = (is_variable(n2)) ? varMap.value(n2) : n2;
 
-                  eval_stack.push_back(QString::number(
-                      lcm(n1.toDouble(), n2.toDouble()), 'f', 0));
+                  eval_stack.push_back(
+                      toString(lcm(n1.toDouble(), n2.toDouble())));
                }
                else
                   throw std::runtime_error(
@@ -517,21 +501,18 @@ double ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
 
    // evaluates only if no input provided
    if (eval_stack.empty())
-      return 0.0;
+      return "";
    else
    {
       if (is_variable(eval_stack.front()))
-         return varMap.value(eval_stack.front()).toDouble();
+         return varMap.value(eval_stack.front());
       else
-      {
-         qInfo() << eval_stack.front();
-         return eval_stack.front().toDouble();
-      }
+         return eval_stack.front();
    }
 }
 
-/* evaluate std::string */
-double ExpressionParser::eval(const QString &s)
+/* evaluate QString */
+QString ExpressionParser::eval(const QString &s)
 {
    std::vector<QString> exp;
    std::for_each(s.begin(), s.end(), [&](const QChar &c) {

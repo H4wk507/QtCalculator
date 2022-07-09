@@ -59,6 +59,8 @@ ParseVal handle_function(const QString &token);
 /* Convert QString operator to ParseVal. */
 ParseVal handle_operator(const QString &token);
 
+QString toString(double n);
+
 /* Convert token to ParseVal. */
 ParseVal token_to_parseval(const QString &token);
 

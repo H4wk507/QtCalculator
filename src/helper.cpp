@@ -185,6 +185,16 @@ ParseVal base_to_dec(const ParseVal &pv, unsigned base)
                    ParseVal::Associativity::left_to_right);
 }
 
+QString toString(double n)
+{
+   QString str = QString::number(n, 'f', 9);
+
+   str.remove(QRegExp("0+$"));   // remove trailing zeros
+   str.remove(QRegExp("\\.$"));  // remove dot from the end
+
+   return str;
+}
+
 ParseVal token_to_parseval(const QString &token)
 {
    // if it is a an operator
