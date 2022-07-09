@@ -8,7 +8,7 @@ Calculator::Calculator(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Calculator)
 {
-   // Test test{};
+   //Test test{};
 
    ui->setupUi(this);
 

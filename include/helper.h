@@ -61,6 +61,9 @@ ParseVal handle_operator(const QString &token);
 
 QString toString(double n);
 
+/* convert variables to numbers */
+void var_to_num(QString &s1, QString &s2);
+
 /* Convert token to ParseVal. */
 ParseVal token_to_parseval(const QString &token);
 

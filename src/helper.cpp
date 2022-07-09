@@ -195,6 +195,11 @@ QString toString(double n)
    return str;
 }
 
+void var_to_num(QString &s1, QString &s2)
+{
+   s1 = (is_variable(s1)) ? varMap.value(s1) : s1;
+   s2 = (is_variable(s2)) ? varMap.value(s2) : s2;
+}
 ParseVal token_to_parseval(const QString &token)
 {
    // if it is a an operator
