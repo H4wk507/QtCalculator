@@ -4,6 +4,7 @@
 #include <QRegularExpression>
 #include <QShortcut>
 #include <clocale>
+#include <deque>
 #include <string>
 
 QT_BEGIN_NAMESPACE
@@ -19,12 +20,15 @@ class Calculator : public QMainWindow
    public:
    Calculator(QWidget *parent = nullptr);
    ~Calculator();
-   friend void my_error(Calculator *calc, const std::string &msg);
 
    private:
    Ui::Calculator *ui;
+   std::deque<QString> history;
+   std::deque<QString>::iterator it;
 
    private slots:
+   void ArrowDownPressed();
+   void ArrowUpPressed();
    void NumPressed();
    void MathButtonPressed();
    void EqualButtonPressed();

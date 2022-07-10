@@ -2,7 +2,7 @@
 #include <QDebug>
 #include "../include/ExpressionParser.h"
 #include "../include/Test.h"
-#include "../ui_calculator.h"
+#include "ui_calculator.h"
 
 Calculator::Calculator(QWidget *parent)
     : QMainWindow(parent)
@@ -15,6 +15,8 @@ Calculator::Calculator(QWidget *parent)
    ui->Input->setPlaceholderText("");
    ui->Input->setFont(QFont("Arial", 25));
    ui->Input->selectAll();
+
+   it = history.begin();
 
    // set number buttons
    QPushButton *numButtons[10];
@@ -68,6 +70,35 @@ Calculator::Calculator(QWidget *parent)
    ui->Equal->setShortcut(QKeySequence(Qt::Key_Return));
    connect(ui->Reset, SIGNAL(released()), this, SLOT(ResetButtonPressed()));
    ui->Reset->setShortcut(QKeySequence(Qt::Key_Escape));
+
+   new QShortcut(QKeySequence(Qt::Key_Up), this, SLOT(ArrowUpPressed()));
+   new QShortcut(QKeySequence(Qt::Key_Down), this, SLOT(ArrowDownPressed()));
+}
+
+void Calculator::ArrowDownPressed()
+{
+   if (!history.empty())
+   {
+      if (it != history.begin())
+      {
+         ui->Input->setText(*--it);
+         if (it == history.begin())
+            it++;
+      }
+   }
+}
+
+void Calculator::ArrowUpPressed()
+{
+   if (!history.empty())
+   {
+      if (it != history.end())
+      {
+         ui->Input->setText(*it++);
+         if (it == history.end())
+            it--;
+      }
+   }
 }
 
 Calculator::~Calculator()
@@ -135,6 +166,12 @@ void Calculator::EqualButtonPressed()
       return;
    }
    ui->Input->setText(solution);
+   history.push_front(displayVal);
+   it = history.begin();
+
+   if (solution != "")
+      displayVal += " = " + solution;
+   ui->label->setText(displayVal);
 }
 
 void Calculator::EnterButtonPressed()
