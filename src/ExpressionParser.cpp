@@ -381,7 +381,7 @@ QString ExpressionParser::calculate(const std::vector<ParseVal> &postfix)
             case Operator::OPERATOR_SQRT:
                n1 = poptop(eval_stack);
                var_to_num(n1, n2);
-               if (n1 < 0)
+               if (n1.toDouble() < 0)
                   throw std::runtime_error("Square root is only defined for "
                                            "non-negative real numbers");
                eval_stack.push_back(toString(std::pow(n1.toDouble(), 0.5)));

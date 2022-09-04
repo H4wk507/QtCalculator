@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 #include "../include/ExpressionParser.h"
-#include "../include/ParseVal.h"
 
 void Test::TestPrecedence()
 {
@@ -66,5 +65,5 @@ void Test::TestPrecedence()
 
 void Test::TestBasicOperations()
 {
-   assert(ExpressionParser::eval("1+2+3") == 1 + 2 + 3);
+   assert(ExpressionParser::eval("1+2+3").toDouble() == 1 + 2 + 3);
 }
