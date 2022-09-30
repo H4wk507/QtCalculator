@@ -5,317 +5,277 @@
     <name>Calculator</name>
     <message>
         <location filename="calculator.ui" line="14"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="848"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="848"/>
-        <location filename="ui_calculator.h" line="848"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="863"/>
+        <location filename="build/ui_calculator.h" line="863"/>
         <source>Calculator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="46"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="849"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="849"/>
-        <location filename="ui_calculator.h" line="849"/>
+        <location filename="calculator.ui" line="306"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="873"/>
+        <location filename="build/ui_calculator.h" line="873"/>
         <source>/</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="73"/>
-        <location filename="calculator.ui" line="154"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="850"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="853"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="850"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="853"/>
-        <location filename="ui_calculator.h" line="850"/>
-        <location filename="ui_calculator.h" line="853"/>
+        <location filename="calculator.ui" line="46"/>
+        <location filename="calculator.ui" line="786"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="864"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="891"/>
+        <location filename="build/ui_calculator.h" line="864"/>
+        <location filename="build/ui_calculator.h" line="891"/>
         <source>C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="100"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="851"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="851"/>
-        <location filename="ui_calculator.h" line="851"/>
+        <location filename="calculator.ui" line="678"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="887"/>
+        <location filename="build/ui_calculator.h" line="887"/>
         <source>)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="127"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="852"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="852"/>
-        <location filename="ui_calculator.h" line="852"/>
+        <location filename="calculator.ui" line="705"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="888"/>
+        <location filename="build/ui_calculator.h" line="888"/>
         <source>3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="181"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="854"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="854"/>
-        <location filename="ui_calculator.h" line="854"/>
+        <location filename="calculator.ui" line="1096"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="903"/>
+        <location filename="build/ui_calculator.h" line="903"/>
         <source>mod</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="208"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="855"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="855"/>
-        <location filename="ui_calculator.h" line="855"/>
+        <location filename="calculator.ui" line="333"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="874"/>
+        <location filename="build/ui_calculator.h" line="874"/>
         <source>D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="235"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="856"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="856"/>
-        <location filename="ui_calculator.h" line="856"/>
+        <location filename="calculator.ui" line="894"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="895"/>
+        <location filename="build/ui_calculator.h" line="895"/>
         <source>A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="262"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="857"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="857"/>
-        <location filename="ui_calculator.h" line="857"/>
+        <location filename="calculator.ui" line="462"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="879"/>
+        <location filename="build/ui_calculator.h" line="879"/>
         <source>1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="289"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="858"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="858"/>
-        <location filename="ui_calculator.h" line="858"/>
+        <location filename="calculator.ui" line="1029"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="900"/>
+        <location filename="build/ui_calculator.h" line="900"/>
         <source>F</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="316"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="859"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="859"/>
-        <location filename="ui_calculator.h" line="859"/>
+        <location filename="calculator.ui" line="100"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="866"/>
+        <location filename="build/ui_calculator.h" line="866"/>
         <source>&lt;&lt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="343"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="860"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="860"/>
-        <location filename="ui_calculator.h" line="860"/>
+        <location filename="calculator.ui" line="975"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="898"/>
+        <location filename="build/ui_calculator.h" line="898"/>
         <source>2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="370"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="861"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="861"/>
-        <location filename="ui_calculator.h" line="861"/>
+        <location filename="calculator.ui" line="127"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="867"/>
+        <location filename="build/ui_calculator.h" line="867"/>
         <source>0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="397"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="862"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="862"/>
-        <location filename="ui_calculator.h" line="862"/>
+        <location filename="calculator.ui" line="225"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="870"/>
+        <location filename="build/ui_calculator.h" line="870"/>
         <source>6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="424"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="863"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="863"/>
-        <location filename="ui_calculator.h" line="863"/>
+        <location filename="calculator.ui" line="360"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="875"/>
+        <location filename="build/ui_calculator.h" line="875"/>
         <source>5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="451"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="864"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="864"/>
-        <location filename="ui_calculator.h" line="864"/>
+        <location filename="calculator.ui" line="867"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="894"/>
+        <location filename="build/ui_calculator.h" line="894"/>
         <source>XOR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="478"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="865"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="865"/>
-        <location filename="ui_calculator.h" line="865"/>
+        <location filename="calculator.ui" line="624"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="885"/>
+        <location filename="build/ui_calculator.h" line="885"/>
         <source>9</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="505"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="866"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="866"/>
-        <location filename="ui_calculator.h" line="866"/>
+        <location filename="calculator.ui" line="543"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="882"/>
+        <location filename="build/ui_calculator.h" line="882"/>
         <source>8</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="532"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="867"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="867"/>
-        <location filename="ui_calculator.h" line="867"/>
+        <location filename="calculator.ui" line="252"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="871"/>
+        <location filename="build/ui_calculator.h" line="871"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="559"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="868"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="868"/>
-        <location filename="ui_calculator.h" line="868"/>
+        <location filename="calculator.ui" line="570"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="883"/>
+        <location filename="build/ui_calculator.h" line="883"/>
         <source>=</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="586"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="869"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="869"/>
-        <location filename="ui_calculator.h" line="869"/>
+        <location filename="calculator.ui" line="516"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="881"/>
+        <location filename="build/ui_calculator.h" line="881"/>
         <source>AND</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="613"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="870"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="870"/>
-        <location filename="ui_calculator.h" line="870"/>
+        <location filename="calculator.ui" line="840"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="893"/>
+        <location filename="build/ui_calculator.h" line="893"/>
         <source>B</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="640"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="871"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="871"/>
-        <location filename="ui_calculator.h" line="871"/>
+        <location filename="calculator.ui" line="948"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="897"/>
+        <location filename="build/ui_calculator.h" line="897"/>
         <source>.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="667"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="872"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="872"/>
-        <location filename="ui_calculator.h" line="872"/>
+        <location filename="calculator.ui" line="73"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="865"/>
+        <location filename="build/ui_calculator.h" line="865"/>
         <source>OR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="694"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="873"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="873"/>
-        <location filename="ui_calculator.h" line="873"/>
+        <location filename="calculator.ui" line="732"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="889"/>
+        <location filename="build/ui_calculator.h" line="889"/>
         <source>&gt;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="721"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="874"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="874"/>
-        <location filename="ui_calculator.h" line="874"/>
+        <location filename="calculator.ui" line="198"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="869"/>
+        <location filename="build/ui_calculator.h" line="869"/>
         <source>4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="748"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="875"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="875"/>
-        <location filename="ui_calculator.h" line="875"/>
+        <location filename="calculator.ui" line="759"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="890"/>
+        <location filename="build/ui_calculator.h" line="890"/>
         <source>E</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="775"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="876"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="876"/>
-        <location filename="ui_calculator.h" line="876"/>
+        <location filename="calculator.ui" line="597"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="884"/>
+        <location filename="build/ui_calculator.h" line="884"/>
         <source>7</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="802"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="877"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="877"/>
-        <location filename="ui_calculator.h" line="877"/>
+        <location filename="calculator.ui" line="921"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="896"/>
+        <location filename="build/ui_calculator.h" line="896"/>
         <source>-</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="829"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="878"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="878"/>
-        <location filename="ui_calculator.h" line="878"/>
+        <location filename="calculator.ui" line="651"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="886"/>
+        <location filename="build/ui_calculator.h" line="886"/>
         <source>*</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="856"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="879"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="879"/>
-        <location filename="ui_calculator.h" line="879"/>
+        <location filename="calculator.ui" line="279"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="872"/>
+        <location filename="build/ui_calculator.h" line="872"/>
         <source>|x|</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="883"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="880"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="880"/>
-        <location filename="ui_calculator.h" line="880"/>
+        <location filename="calculator.ui" line="1002"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="899"/>
+        <location filename="build/ui_calculator.h" line="899"/>
         <source>NOT</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="910"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="881"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="881"/>
-        <location filename="ui_calculator.h" line="881"/>
+        <location filename="calculator.ui" line="408"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="877"/>
+        <location filename="build/ui_calculator.h" line="877"/>
         <source>(</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="937"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="882"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="882"/>
-        <location filename="ui_calculator.h" line="882"/>
+        <location filename="calculator.ui" line="813"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="892"/>
+        <location filename="build/ui_calculator.h" line="892"/>
         <source>x^y</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="964"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="883"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="883"/>
-        <location filename="ui_calculator.h" line="883"/>
+        <location filename="calculator.ui" line="1056"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="901"/>
+        <location filename="build/ui_calculator.h" line="901"/>
         <source>√</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="991"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="884"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="884"/>
-        <location filename="ui_calculator.h" line="884"/>
+        <location filename="calculator.ui" line="171"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="868"/>
+        <location filename="build/ui_calculator.h" line="868"/>
         <source>x⁻¹</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="1021"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="885"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="885"/>
-        <location filename="ui_calculator.h" line="885"/>
+        <location filename="calculator.ui" line="1069"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="902"/>
+        <location filename="build/ui_calculator.h" line="902"/>
         <source>Decimal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="1048"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="886"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="886"/>
-        <location filename="ui_calculator.h" line="886"/>
+        <location filename="calculator.ui" line="489"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="880"/>
+        <location filename="build/ui_calculator.h" line="880"/>
         <source>x!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="calculator.ui" line="1075"/>
-        <location filename="build/Calculator_autogen/include/ui_calculator.h" line="887"/>
-        <location filename="build/Calculator_autogen/ui_calculator.h" line="887"/>
-        <location filename="ui_calculator.h" line="887"/>
+        <location filename="calculator.ui" line="435"/>
+        <location filename="build/Calculator_autogen/ui_calculator.h" line="878"/>
+        <location filename="build/ui_calculator.h" line="878"/>
         <source>×10^y</source>
         <translation type="unfinished"></translation>
     </message>

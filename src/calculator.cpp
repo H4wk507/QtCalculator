@@ -2,7 +2,7 @@
 #include <QDebug>
 #include "../include/ExpressionParser.h"
 #include "../include/Test.h"
-#include "ui_calculator.h"
+#include "../ui_calculator.h"
 
 Calculator::Calculator(QWidget *parent)
     : QMainWindow(parent)
