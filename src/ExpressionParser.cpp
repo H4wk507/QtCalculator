@@ -192,9 +192,12 @@ std::vector<ParseVal> ExpressionParser::infix_to_postfix(
             in_abs = !in_abs;
       }
       // function or variable
-      else
+      else {
+         // if number before function or variable, treat it as multiplication
+         if (is_decimal(prev_token.get_operator()))
+            stack.push_back(token_to_parseval("*"));
          stack.push_back(token);
-
+      }
       prev_token = token;
    }
 
