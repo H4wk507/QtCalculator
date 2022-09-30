@@ -20,7 +20,7 @@ HEADERS += ui_calculator.h \
            include/helper.h \
            include/Operator.h \
            include/ParseVal.h  \
-           src/test.h
+           include/Test.h
 
 FORMS += calculator.ui
 

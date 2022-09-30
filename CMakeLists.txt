@@ -20,6 +20,7 @@ set(PROJECT_SOURCES
       src/main.cpp
       src/calculator.cpp
       include/calculator.h
+      ui_calculator.h
       calculator.ui
       include/helper.h
       src/helper.cpp
@@ -28,9 +29,9 @@ set(PROJECT_SOURCES
       include/Function.h
       include/Operator.h
       include/ParseVal.h
+      include/Test.h
       src/ParseVal.cpp
       src/Test.cpp
-      include/Test.h
       ${TS_FILES}
 )
 
