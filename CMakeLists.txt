@@ -20,8 +20,7 @@ set(PROJECT_SOURCES
       src/main.cpp
       src/calculator.cpp
       include/calculator.h
-      ui_calculator.h
-      calculator.ui
+      src/calculator.ui
       include/helper.h
       src/helper.cpp
       include/ExpressionParser.h

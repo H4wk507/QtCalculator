@@ -1,7 +1,7 @@
 #include "../include/calculator.h"
 #include <QDebug>
 #include "../include/ExpressionParser.h"
-#include "../ui_calculator.h"
+#include "ui_calculator.h"
 #include "../include/Test.h"
 
 Calculator::Calculator(QWidget *parent)
